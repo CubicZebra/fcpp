@@ -1,0 +1,16 @@
+{
+  "name": "fcpp",
+  "version": "1.0.3",
+  "license": "Apache-2.0",
+  "description": "The simple description in meta",
+  "authors": ["Chen Zhang <chen.zhang_06xept@foxmail.com>"],
+  "maintainers": ["Chen Zhang <chen.zhang_06xept@foxmail.com>"],
+  "topics": ["build", "library"],
+  "url": "https://github.com/CubicZebra/fcpp.git",
+  "homepage": "https://github.com/CubicZebra/fcpp.git",
+  "build_cppstd": "23",
+  "build_cstd": "11",
+  "generate_modules_inplace": true,
+  "std_modules": ["iostream"],
+  "user_modules": []
+}

@@ -1,40 +1,22 @@
-#include "tst.h"
-#include "basic.h"
 #include <Eigen/Dense>
 #include <vector>
-#include <string>
 #include <iostream>
-#include <generator>
+#include <__future.h>
+#include <__future.hpp>
+#include "hello.hpp"
+// import "hello.hpp"; // C++23 only
 
 
 using namespace std;
 using namespace Eigen;
 
 
-
-// import tst;  // 导入模块
-// import <iostream>;
-// import <vector>;
-// import <string>;
-// #include <Eigen/Dense>
-
-
-std::generator<int> generate_sequence(int start, int end) {
-    for (int i = start; i <= end; ++i) {
-        co_yield i; // 暂停并返回值
-    }
-}
-
-
-
-
 int main() {
-    tsta();
+    test_hello();
 
-    std::vector<std::string> vec;
-    vec.push_back("test_package");
-
-    tst_print_vector(vec);
+    std::vector<int> nums = {1, 2, 3, 4, 5};
+    auto result = test_sum(nums);
+    std::cout << "Sum: " << result << std::endl;
 
     Matrix3d A;
     A << 1, 2, 3,
@@ -43,9 +25,11 @@ int main() {
 
     Vector3d b(1, 2, 3);
 
-    // 2. 打印矩阵和向量
     cout << "矩阵 A:\n" << A << endl;
     cout << "向量 b:\n" << b << endl;
 
-    for (auto v : generate_sequence(3, 15)) { cout << v << endl; };
+    std::cout << "cpp standard: " << CPP_STANDARD << std::endl;
+    std::cout << "c standard: " << C_STANDARD << std::endl;
+    std::cout << "The value of KK: " << KK << std::endl;
+
 }
