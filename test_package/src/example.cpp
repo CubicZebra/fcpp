@@ -1,35 +1,30 @@
-#include <Eigen/Dense>
 #include <vector>
 #include <iostream>
-#include <__future.h>
-#include <__future.hpp>
-#include "hello.hpp"
+#include <ctest.h>
+#include "cpptest.hpp"
 // import "hello.hpp"; // C++23 only
 
 
-using namespace std;
-using namespace Eigen;
-
-
 int main() {
-    test_hello();
 
-    std::vector<int> nums = {1, 2, 3, 4, 5};
-    auto result = test_sum(nums);
+    // C test
+    test_c_compiler();
+    test_c_zlib();
+    test_c_pcre();
+
+    // CPP test
+    test_hello();
+    test_cpp_zlib();
+    test_eigen();
+
+    const std::vector<int> nums = {1, 2, 3, 4, 5};
+    const auto result = test_sum(nums);
     std::cout << "Sum: " << result << std::endl;
 
-    Matrix3d A;
-    A << 1, 2, 3,
-         4, 5, 6,
-         7, 8, 9;
+    const Person alice("Alice", 25);
+    std::cout << alice.greet() << std::endl;
 
-    Vector3d b(1, 2, 3);
-
-    cout << "矩阵 A:\n" << A << endl;
-    cout << "向量 b:\n" << b << endl;
-
-    std::cout << "cpp standard: " << CPP_STANDARD << std::endl;
-    std::cout << "c standard: " << C_STANDARD << std::endl;
-    std::cout << "The value of KK: " << KK << std::endl;
+    const Color<int> red(255, 0, 0);
+    red.print();
 
 }

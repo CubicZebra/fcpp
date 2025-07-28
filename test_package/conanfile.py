@@ -34,7 +34,7 @@ class PackageTestConan(ConanFile):
         tc = CMakeToolchain(self)
         lib_name = self.tested_reference_str.split("/")[0]
         tc.variables["LIB_NAME"] = lib_name
-        tc.variables["TARGET_NAME"] = self.metadata.get("cmake_target", f"{lib_name}::{lib_name}")
+        tc.variables["DEP_TARGETS"] = self.metadata.get('targets')
         tc.generate()
 
     def build(self):

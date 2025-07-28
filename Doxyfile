@@ -1,7 +1,7 @@
 # basic configuration
 PROJECT_NAME = "fcpp"
 INPUT = ./src
-FILE_PATTERNS = *.ixx
+FILE_PATTERNS = *.ixx *.cppm
 RECURSIVE = YES
 OUTPUT_DIRECTORY = ./docs
 
