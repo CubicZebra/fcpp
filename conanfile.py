@@ -2,7 +2,6 @@ from conan import ConanFile
 from conan.tools.cmake import CMakeToolchain, CMake, CMakeDeps, cmake_layout
 from typing import Literal
 from pathlib import Path
-import json
 import yaml
 import os
 sep = os.path.sep
@@ -70,15 +69,15 @@ class PackageRecipe(ConanFile):
 
     # Binary configuration
     settings = "os", "compiler", "build_type", "arch"
-    options = {"shared": [True, False], "fPIC": [True, False], 'generate_modules': [True, False]}
-    default_options = {"shared": False, "fPIC": True, 'generate_modules': False}
+    options = {"shared": [True, False], "fPIC": [True, False]}
+    default_options = {"shared": False, "fPIC": True}
 
     # Sources are located in the same place as this recipe, copy them to the recipe
     exports_sources = ["CMakeLists.txt", "src/*", "include/*", "metadata.json", "LICENSE"]
     exports = ["conandata.yml", "metadata.json", "LICENSE"]
 
     generators = "VirtualBuildEnv", "VirtualRunEnv"
-    conandata, headers, sources, license_full_text , importable_modules = None, None, None, None, None
+    conandata, meta, headers, sources, license_full_text , importable_modules = [None for _ in range(6)]
 
     def init(self):
         conandata_path = Path(self.recipe_folder) / "conandata.yml"
@@ -87,7 +86,6 @@ class PackageRecipe(ConanFile):
 
         self.conandata = yaml.safe_load(conandata_path.read_text())
         self.meta = yaml.safe_load(metadata_path.read_text())
-        self._update_meta()  # no need specification for 'targets', automatically calculated
 
         # Required attributes
         self.name, self.version = self.meta.get('name'), self.meta.get('version')
@@ -171,8 +169,6 @@ class PackageRecipe(ConanFile):
             _build_std = "17" if _build_std not in {"17", "20", "23"} else _build_std  # fallback to C++17
             self.settings.compiler.cppstd = _build_std
 
-        # self._remove_customized_doc_command(tags=['@exporter', '@attacher'])
-        # self._redefine_conan_tags()
         self._make_c_compatible()
 
     def _make_c_compatible(self):
@@ -193,7 +189,6 @@ class PackageRecipe(ConanFile):
             with open(_f, 'w', encoding='utf-8') as f:
                 f.write(''.join(_new_text))
 
-
     def requirements(self):
         for req in self.conandata.get('requirements'):
             self.requires(req)
@@ -204,6 +199,8 @@ class PackageRecipe(ConanFile):
     def generate(self):
         tc = CMakeToolchain(self)
         tc.variables['C_DEPS'], tc.variables['CPP_DEPS'] = self._preparing_deps_links()
+        if self.options.shared:
+            tc.variables['SHARED_MSG'] = 'Conan: shared=True is not supported due to complexity in this frame;'
         tc.generate()
         deps = CMakeDeps(self)
         deps.generate()
@@ -221,25 +218,7 @@ class PackageRecipe(ConanFile):
         cmake.configure()
         cmake.build()
 
-    def _calculate_targets(self):
-        _common, _c, _cpp = [self.meta.get('dependencies').get(_) for _ in ['common', 'c', 'cpp']]
-        _lib_name = self.meta.get('name')
-        res = {f'{_lib_name}_c', f'{_lib_name}_cpp'}
-        for k, v in _common.items():
-            res = res.union(set(v))
-        for k, v in _c.items():
-            res = res.union(set(v))
-        for k, v in _cpp.items():
-            res = res.union(set(v))
-        return ';'.join(res)
-
-    def _update_meta(self):
-        self.meta.update(targets=self._calculate_targets())
-        _f = (Path(self.recipe_folder) / "metadata.json").__str__()
-        with open("metadata.json", "w", encoding="utf-8") as f:
-            json.dump(self.meta, f, indent=4)
-
-    def _remove_customized_doc_command(self, tags: list[str] = None):
+    def _remove_customized_doc_command(self, tags: list[str] = None):  # maybe no use anymore
 
         if tags is None:
             tags = ['@exporter', '@attacher']

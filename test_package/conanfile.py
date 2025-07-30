@@ -12,6 +12,8 @@ class PackageTestConan(ConanFile):
     settings = "os", "compiler", "build_type", "arch"
     generators = "CMakeDeps"
 
+    conandata, metadata = None, None
+
     def init(self):
         conandata_path = Path(self.recipe_folder).parent / "conandata.yml"
         self.conandata = yaml.safe_load(conandata_path.read_text())
@@ -34,8 +36,26 @@ class PackageTestConan(ConanFile):
         tc = CMakeToolchain(self)
         lib_name = self.tested_reference_str.split("/")[0]
         tc.variables["LIB_NAME"] = lib_name
-        tc.variables["DEP_TARGETS"] = self.metadata.get('targets')
+        tc.variables["DEP_TARGETS"] = self._get_targets()
         tc.generate()
+
+    def _calculate_targets(self):
+        _common, _c, _cpp = [self.metadata.get('dependencies').get(_) for _ in ['common', 'c', 'cpp']]
+        _lib_name = self.metadata.get('name')
+        res = {f'{_lib_name}_c', f'{_lib_name}_cpp'}
+        for k, v in _common.items():
+            res = res.union(set(v))
+        for k, v in _c.items():
+            res = res.union(set(v))
+        for k, v in _cpp.items():
+            res = res.union(set(v))
+        return ';'.join(res)
+
+    def _get_targets(self):
+        _targets = self.metadata.get('targets')
+        if _targets is None or _targets == 'auto':
+            _targets = self._calculate_targets()
+        return _targets
 
     def build(self):
         cmake = CMake(self)
