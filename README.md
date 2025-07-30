@@ -1,4 +1,4 @@
-# A Modern C/CPP Build System
+# A Modern C/CPP Library Build System
 
 This project is a C/C++ library built using Conan 2.0 and CMake, featuring modern C++ standards support and module capabilities.
 
@@ -6,7 +6,7 @@ This project is a C/C++ library built using Conan 2.0 and CMake, featuring moder
 - **Language**: C/C++
 - **Build System**: CMake
 - **Package Manager**: Conan 2.0
-- **Module Support**: Enabled when C++ standard ≥ 23
+- **Module Support**: Optionally activated, when C++ standard ≥ 23
 - **Component Structure**:
     - `c_part`: C-compatible library component
     - `cpp_part`: C++ library component with module support
