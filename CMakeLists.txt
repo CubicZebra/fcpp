@@ -214,6 +214,11 @@ else()
 endif()
 
 
+if(SHARED_MSG)
+    message(STATUS "${SHARED_MSG} use static instead!")
+endif()
+
+
 # install targets
 install(TARGETS ${LIB_NAME}_c ${LIB_NAME}_cpp
         EXPORT ${LIB_NAME}Targets
