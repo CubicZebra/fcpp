@@ -1,9 +1,9 @@
 # basic configuration
 PROJECT_NAME = "fcpp"
-INPUT = ./src
-FILE_PATTERNS = *.ixx *.cppm
+INPUT = ../../include ../../src
+FILE_PATTERNS = *.h *.c *.hpp *.cpp
 RECURSIVE = YES
-OUTPUT_DIRECTORY = ./docs/_cache
+OUTPUT_DIRECTORY = ./build/en/v1.0/
 
 # parsing configuration
 EXTRACT_ALL = YES
