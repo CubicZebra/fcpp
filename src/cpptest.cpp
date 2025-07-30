@@ -38,7 +38,7 @@ Person::Person(std::string n, int a) : name(std::move(n)), age(a) {};
 
 /**
  * @brief test Person meth 2
- * @return greet massage
+ * @return the hello message
  * @attacher
  */
 std::string Person::greet() const { return "Hello, I'm " + name; };
