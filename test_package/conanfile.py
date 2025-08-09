@@ -21,7 +21,7 @@ class PackageTestConan(ConanFile):
         self.metadata = yaml.safe_load(metadata_path.read_text())
 
     def build_requirements(self):
-        self.build_requires("cmake/4.0.1")
+        self.build_requires(f"cmake/{self.metadata.get('cmake_version')}")
 
     def requirements(self):
         self.requires(self.tested_reference_str)

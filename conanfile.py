@@ -16,7 +16,7 @@ _is_valid_import = (lambda x, c: x.startswith('#include ') and x[9:].strip() in 
 
 
 def _get_export_objects(x: list[str], tag: Literal['@exporter', '@attacher'] = '@exporter') -> list[str]:
-    _cache = (''.join(x)).split('\n\n')
+    _cache = (''.join(x)).split('\n\n')  # TODO: maybe \n*3 is better (consider the namespace in CPP)?
     _export_objs = [_ for _ in _cache if tag in _]
 
     container = []
@@ -32,7 +32,7 @@ def _get_export_objects(x: list[str], tag: Literal['@exporter', '@attacher'] = '
         _res = '\n'.join([_ for _ in _res if not _.startswith(f' * {tag}')])
         if tag == '@exporter':
             _res = _res.replace('export \n','export ')
-        else:
+        else:  # @attacher
             _res = _res.replace('export \n', '')
         container.append(_res)
 
@@ -58,7 +58,7 @@ def _pragma_in_import(x: list[str]) -> tuple[bool, int]:
         if _l.startswith('#pragma once'):
             _has_pragma = True
             _idx = i
-        if _l.strip() == '//! Conan::ImportEnd':
+        if _l.strip() == '// Conan::ImportEnd':
             break
     return _has_pragma, _idx
 
@@ -138,7 +138,7 @@ class PackageRecipe(ConanFile):
 
                 # merge export items in hpp or cpp
                 _m_intro, _m_split = _hpp_intro, _hpp_split  # follow the hpp nomenclature
-                _m_inc = [_ for _ in set(_hpp_inc).union(set(_cpp_inc)) if not _.startswith('//! Conan::Escape')]
+                _m_inc = [_ for _ in set(_hpp_inc).union(set(_cpp_inc)) if not _.startswith('// Conan::Escape')]
                 _m_inc = [_ for _ in _m_inc if not _.startswith('#pragma once')]
                 _m_inc = [_ for _ in _m_inc if f'{_mod_name}.hpp' not in _]  # escape self include
                 _m_extra = [_ for _ in set(_hpp_extra).union(set(_cpp_extra))]
@@ -153,7 +153,7 @@ class PackageRecipe(ConanFile):
         return _tmp + ['"' + _ + '.hpp";' for _ in self.meta.get("user_modules")]
 
     def build_requirements(self):
-        self.build_requires("cmake/4.0.1")
+        self.build_requires(f"cmake/{self.meta.get('cmake_version')}")
 
     def config_options(self):
         if self.settings.os == "Windows":
@@ -242,17 +242,17 @@ class PackageRecipe(ConanFile):
         _flag, _is_import_lines, _splitter = 1, [], 0
         for i, _l in enumerate(x):
             _is_import_lines.append(_flag)
-            if _l.strip() == '//! Conan::ImportEnd':
+            if _l.strip() == '// Conan::ImportEnd':
                 _flag = 0
                 _splitter = i + 1
 
         _import_context = [l for i, l in zip(_is_import_lines, x) if i]
         _other_context = [l for i, l in zip(_is_import_lines, x) if not i]
 
-        _tmp = ['//! Conan::Escape ' + _ if _is_valid_import(_, self.importable_modules) else _ for _
+        _tmp = ['// Conan::Escape ' + _ if _is_valid_import(_, self.importable_modules) else _ for _
                 in _import_context[1:-1]]
         _extra = ['import ' + _.split('#include ')[-1].strip() + ';\n' for _ in _tmp if
-                  _.startswith('//! Conan::Escape ')]
+                  _.startswith('// Conan::Escape ')]
         _intro, _split = ['module;\n', ], [f'export module {m_name};\n', ]
 
         # drop '\n' in import lines
@@ -279,7 +279,7 @@ class PackageRecipe(ConanFile):
     def _call_syntax_suggestion():
         _content = ['============================= Syntax Guide =============================',
                     '1.force 2 blank lines to distinguish global objects;',
-                    '2.Use //! Conan::ImportStart and //! Conan::ImportEnd in beginning,',
+                    '2.Use // Conan::ImportStart and // Conan::ImportEnd in beginning,',
                     '  wrapping #include lines;',
                     '3.generate_modules_inplace is true in metadata.json can automatically,',
                     '  generate modules (ixx, cppm) files;',
