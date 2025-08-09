@@ -9,6 +9,7 @@
   "topics": ["build", "library"],
   "url": "https://github.com/CubicZebra/fcpp.git",
   "homepage": "https://github.com/CubicZebra/fcpp.git",
+  "cmake_version": "4.0.1",
   "build_cppstd": "23",
   "build_cstd": "11",
   "generate_modules_inplace": false,
@@ -18,5 +19,10 @@
     "common": {"ZLIB": ["ZLIB::ZLIB"]},
     "c": {"PCRE2": ["pcre2::pcre2"]},
     "cpp": {"Eigen3": ["Eigen3::Eigen"]}
-  }
+  },
+  "graphviz_bin": "C:\\Program Files\\Graphviz\\bin",
+  "doc_doxygen_folders": ["include", "src"],
+  "doc_doxygen_suffix": ["h", "c", "hpp", "cpp", "dox", "cxx"],
+  "doc_doxygen_languages": ["en", "zh"],
+  "doc_doxygen_versions": ["1.0", "2.0"]
 }
