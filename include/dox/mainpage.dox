@@ -1,0 +1,24 @@
+/*!
+ * @mainpage Introduction
+ *
+ * Welcome to API documentation of this project!
+ *
+ * @section intro_sec [en] demonstration
+ *     This is simple demo main page
+ * @section intro_sec [zh] 演示
+ *     这是一个简单的演示主页
+ *
+ * @section features_sec features
+ *     - cross-platform
+ *     - modularization
+ *     - integratable
+ *
+ * @section usage_sec usage
+ *     include headers in code:
+ *     @code{.cpp}
+ *     #include "mylib.h"
+ *     @endcode
+ *
+ * @author Chen Zhang <chen.zhang_06sept@foxmail.com>
+ * @since 1.0
+ */

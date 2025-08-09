@@ -1,0 +1,17 @@
+/**
+ * @example tutorial.dox
+ *
+ * A complete example of using MyLibrary.
+ *
+ * This example demonstrates how to initialize MyLibrary, invoke its core functions,
+ * and properly clean up resources.
+ *
+ * @include demo.cxx
+ *
+ * @par Description:
+ * - First, call init() to initialize the library.
+ * - Then, use process() to handle data.
+ * - Finally, call cleanup() to release allocated resources.
+ *
+ * @note Make sure to link against the MyLibrary library when compiling.
+ */
