@@ -1,9 +1,11 @@
 # basic configuration
-PROJECT_NAME = "fcpp"
-INPUT = ./src
-FILE_PATTERNS = *.ixx *.cppm
+PROJECT_NAME = %LIB_NAME%
+PROJECT_LOGO = ../../../images/ALL_logo.jpg
+INPUT = ./_%LAN%_v%VER%_docstrings/
+FILE_PATTERNS = %PATTERNS%
+MAIN_PAGE = mainpage
 RECURSIVE = YES
-OUTPUT_DIRECTORY = ./docs/_cache
+OUTPUT_DIRECTORY = ./build_sub/
 
 # parsing configuration
 EXTRACT_ALL = YES
@@ -14,3 +16,29 @@ CLANG_ASSISTED_PARSING = YES
 # export format
 GENERATE_HTML = YES
 GENERATE_LATEX = NO
+
+# internationalization configuration
+OUTPUT_LANGUAGE = %FULL_LAN%
+
+# customized configuration
+ALIASES += "exporter="
+ALIASES += "attacher="
+
+# Graphviz support
+HAVE_DOT = YES
+DOT_PATH = %GRAPHVIZ_BIN%
+DOT_IMAGE_FORMAT = svg
+CALL_GRAPH = YES
+USE_MATHJAX = YES
+
+# image configuration
+IMAGE_PATH = ../../../images
+
+# customized configuration
+ALIASES += "exporter="
+ALIASES += "attacher="
+
+# support examples source
+EXAMPLE_PATH = ./_%LAN%_v%VER%_docstrings/
+EXAMPLE_PATTERNS = *.cxx
+EXAMPLE_RECURSIVE  = YES
