@@ -1,19 +1,23 @@
-//! Conan::ImportStart
+// Conan::ImportStart
 #pragma once
 #include <vector>
 #include <iostream>
 #include <tuple>
 #include <string>
-//! Conan::ImportEnd
+// Conan::ImportEnd
+
 
 
 void test_hello();
 
 
+
 void test_eigen();
 
 
+
 void test_cpp_zlib();
+
 
 
 /**
@@ -45,6 +49,7 @@ auto test_sum(const std::vector<T>& vec) {
 };
 
 
+
 /**
  * @brief simple RGB color template
  * @tparam T type trait
@@ -61,6 +66,7 @@ public:
 private:
     T r{}, g{}, b{};
 };
+
 
 
 /**

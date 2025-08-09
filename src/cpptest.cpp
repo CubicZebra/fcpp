@@ -1,10 +1,11 @@
-//! Conan::ImportStart
+// Conan::ImportStart
 #include <iostream>
 #include <string>
 #include <zlib.h>
 #include <Eigen/Dense>
 #include <cpptest.hpp>
-//! Conan::ImportEnd
+// Conan::ImportEnd
+
 
 
 /**
@@ -12,6 +13,7 @@
  * @exporter
  */
 void test_hello() { std::cout << "CPP Compiler is ready!" << std::endl; };
+
 
 
 /**
@@ -27,6 +29,7 @@ void test_eigen() {
 }
 
 
+
 /**
  * @brief test Person construction
  * @param n name
@@ -36,12 +39,14 @@ void test_eigen() {
 Person::Person(std::string n, int a) : name(std::move(n)), age(a) {};
 
 
+
 /**
  * @brief test Person meth 2
  * @return the hello message
  * @attacher
  */
 std::string Person::greet() const { return "Hello, I'm " + name; };
+
 
 
 /**

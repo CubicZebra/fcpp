@@ -1,20 +1,23 @@
-//! Conan::ImportStart
+// Conan::ImportStart
 #include <ctest.h>
 #include <stdio.h>
 #include <zlib.h>
 #define PCRE2_CODE_UNIT_WIDTH 8
 #include <pcre2.h>
-//! Conan::ImportEnd
+// Conan::ImportEnd
+
 
 
 /**
- * @brief the C function
+ * @brief [en] the C function
+ * @brief [zh] 测试用C函数
  * @exporter
  */
 void test_c_compiler() {
     _Static_assert(1, "for C Compiler only");  // _Static_assert: C only syntax
     printf("C Compiler is ready!\n");
 }
+
 
 
 /**
@@ -29,6 +32,7 @@ void test_c_zlib() {
     uncompress(rec, &len_rec, out, len_out);
     printf("Original: %s; Decompressed: %s; zlib in C test done!\n", in, rec);
 }
+
 
 
 /**
