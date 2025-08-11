@@ -1,99 +1,100 @@
 # A Modern C/CPP Library Build System
 
-This project is a C/C++ library built using Conan 2.0 and CMake, featuring modern C++ standards support and module capabilities.
+This project is a C/C++ library built using Conan 2.0, featuring modern C and C++ standards support and module 
+capabilities.
 
 ## Project Overview
+
 - **Language**: C/C++
-- **Build System**: CMake
-- **Package Manager**: Conan 2.0
+- **Library Build System**: Python with Conan 2.0
+- **File Build System**: Doxygen, Graphviz, Sphinx
 - **Module Support**: Optionally activated, when C++ standard ≥ 23
 - **Component Structure**:
-    - `c_part`: C-compatible library component
-    - `cpp_part`: C++ library component with module support
+    - pairwise header and source assumption
+    - strict suffix constraint, (.h, .c) for C part, and (.hpp, .cpp) for C++ part
+    - documenting system uses .dox for pure docstring, .cxx for examples codes
 
 ## Features
+
+- Conan-based modern dependency management
 - Supports C++ standards 17, 20, and 23
 - Automatic module file generation (`.ixx`/`.cppm`) from headers/sources
 - Cross-platform compatibility (Windows, Linux, macOS)
 - Dual C and C++ interfaces with separate linkage targets
-- Doxygen annotation support for symbol exporting (`@exporter`, `@attacher`)
-- Conan-based dependency management
+- Doxygen annotation support for object exporting (`@exporter`, `@attacher`)
+- Automation documenting system via Doxygen
+- Importation, derivation and call relationship illustration through Graphviz
 
 ## Build Requirements
+
 - Conan 2.0+
-- CMake ≥ 3.28
 - Compatible C/C++ compiler:
     - GCC
     - Clang
     - MSVC
     - Apple Clang
 
-## Build Instructions
+## Crash Course of Build
 
-### 1. Install dependencies
+### 1. Build then test your library
+
 ```bash
-conan install . --output-folder=build --build=missing
+conan create . -s build_type=Debug --build=missing
 ```
 
-### 2. Configure with CMake
+### 2. Build documentations
+
 ```bash
-cd build
-cmake .. -DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake
+python ./docs/build.py
 ```
 
-### 3. Build the project
-```bash
-cmake --build .
-```
+### 3. Add requirements
 
-### 4. Install the library
-```bash
-cmake --install .
-```
+Add your desired library in *conandata.yml* where dependency graph is computed through, then modify the 
+**dependencies** field in *metadata.json*, to link the targets in the proper way (no need modification
+on *CMakeLists.txt*).
 
-## Usage in Other Projects
-
-### Conan (package consumers)
-Add to your `conanfile.py`:
-```python
-requires = "your_project_name/version"
-```
-
-### CMake Integration
-```cmake
-find_package(your_project_name REQUIRED)
-target_link_libraries(your_target PRIVATE
-    your_project_name::c_part     # C interface
-    your_project_name::cpp_part   # C++ interface
-)
-```
+Requirements for your project can be the package archived on [Conan Center](https://conan.io/center), or user 
+built ones. If the later, more detailed configuration is in discussion.
 
 ## Project Structure
+
 ```
 project-root/
 ├── conanfile.py         # Conan recipe
-├── CMakeLists.txt       # CMake build configuration
-├── metadata.json        # Project metadata (name, version, etc)
-├── conandata.yml        # Dependency specifications
+├── CMakeLists.txt       # CMake build framework
+├── metadata.json        # Project metadata configuration (name, version, etc)
+├── conandata.yml        # Dependency specifications, Conan plugin support
 ├── include/             # Public headers
+├── ├── dox/             # Pure documentations' folder
+│   │   ├── demos/       # Examples catelogue
+│   │   │   ├── *.dox    # Documenting docstring
+│   │   │   └── *.cxx    # Example codes
+│   │   └── *.dox        # Main pages and etc
 │   ├── *.h              # C interface headers
 │   └── *.hpp            # C++ interface headers
 ├── src/                 # Implementation files
 │   ├── *.c              # C sources
 │   ├── *.cpp            # C++ sources
-│   └── (auto-generated) # Module files (*.ixx/*.cppm)
+│   └── (auto-generated) # Module files (*.ixx/*.cppm) in experimental
 └── LICENSE              # Project license
 ```
 
 ## Module Generation
+
 When `generate_modules_inplace` is enabled in `metadata.json`:
+
 1. Header/source pairs automatically generate module files
 2. `#include` directives are converted to `import` statements
 3. Doxygen annotations control symbol visibility:
     - `@exporter`: Exports symbols in modules
     - `@attacher`: Attaches symbols to modules
 
+This feature is in experimental now, however the specific syntax can make the existing project a ease 
+migration to fit the future C++ standard.
+
 ## Compiler Support Matrix
+
 | Feature          | MSVC | Clang | GCC | Apple Clang |
 |------------------|------|-------|-----|-------------|
 | C++ Modules      | ✓    | ✓     | ✓   | ✓           |
@@ -101,4 +102,5 @@ When `generate_modules_inplace` is enabled in `metadata.json`:
 | Automatic Export | ✓    | ✓     | ✓   | ✓           |
 
 ## License
+
 [Apache-2.0] - See included LICENSE file for details.
