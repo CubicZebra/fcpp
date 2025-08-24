@@ -3,6 +3,7 @@ from conan.tools.cmake import CMake, cmake_layout, CMakeToolchain
 from conan.tools.build import can_run
 from conan.tools.env import VirtualRunEnv, VirtualBuildEnv
 from pathlib import Path
+import shutil
 import yaml
 import os
 sep = os.path.sep
@@ -36,25 +37,24 @@ class PackageTestConan(ConanFile):
         tc = CMakeToolchain(self)
         lib_name = self.tested_reference_str.split("/")[0]
         tc.variables["LIB_NAME"] = lib_name
-        tc.variables["DEP_TARGETS"] = self._get_targets()
+        tc.variables["CXX_DEPS"] = self._get_targets()
         tc.generate()
 
-    def _calculate_targets(self):
+    def _preparing_deps_links(self):
         _common, _c, _cpp = [self.metadata.get('dependencies').get(_) for _ in ['common', 'c', 'cpp']]
-        _lib_name = self.metadata.get('name')
-        res = {f'{_lib_name}_c', f'{_lib_name}_cpp'}
-        for k, v in _common.items():
-            res = res.union(set(v))
-        for k, v in _c.items():
-            res = res.union(set(v))
-        for k, v in _cpp.items():
-            res = res.union(set(v))
-        return ';'.join(res)
+        _c = {k: v if k not in _common.keys() else list(set(v).union(set(_common.get(k)))) for k, v in _c.items()}
+        _cpp = {k: v if k not in _common.keys() else list(set(v).union(set(_common.get(k)))) for k, v in _cpp.items()}
+        _c_deps = [f"{k}@{' '.join(v)}" for k, v in {**_common, **_c}.items()]
+        _cpp_deps = [f"{k}@{' '.join(v)}" for k, v in {**_common, **_cpp}.items()]
+        return list(set(_c_deps).union(set(_cpp_deps)))
 
     def _get_targets(self):
-        _targets = self.metadata.get('targets')
+        _targets, _name = self.metadata.get('target'), self.metadata.get('name')
         if _targets is None or _targets == 'auto':
-            _targets = self._calculate_targets()
+            _targets = [f'{_name}@{_name}::{_name}']
+        else:
+            _targets = [f'{_name}@{_targets}']
+        _targets.extend(self._preparing_deps_links())
         return _targets
 
     def build(self):
@@ -76,3 +76,16 @@ class PackageTestConan(ConanFile):
         if can_run(self):
             cmd = os.path.join(self.cpp.build.bindirs[0], "example")
             self.run(cmd, env="conanrun")
+
+
+def _clear_test_build():
+    _build = sep.join(__file__.split(sep)[:-1] + ['build'])
+    _presets = sep.join(__file__.split(sep)[:-1] + ['CMakeUserPresets.json'])
+    if os.path.exists(_build):
+        shutil.rmtree(_build)
+    if os.path.exists(_presets):
+        os.remove(_presets)
+
+
+if __name__ == '__main__':
+    _clear_test_build()

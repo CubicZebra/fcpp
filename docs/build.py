@@ -458,5 +458,4 @@ class AutomationDoc:
 
 
 if __name__ == '__main__':
-    # _doxygen_automation_builder(languages, versions)
     A = AutomationDoc()
