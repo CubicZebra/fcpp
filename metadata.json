@@ -1,6 +1,6 @@
 {
   "name": "fcpp",
-  "targets": "auto",
+  "target": "auto",
   "version": "1.0.3",
   "license": "Apache-2.0",
   "description": "The simple description in meta",
@@ -10,7 +10,7 @@
   "url": "https://github.com/CubicZebra/fcpp.git",
   "homepage": "https://github.com/CubicZebra/fcpp.git",
   "cmake_version": "4.0.1",
-  "build_cppstd": "23",
+  "build_cppstd": "17",
   "build_cstd": "11",
   "generate_modules_inplace": false,
   "std_modules": ["iostream"],
@@ -18,7 +18,7 @@
   "dependencies": {
     "common": {"ZLIB": ["ZLIB::ZLIB"]},
     "c": {"PCRE2": ["pcre2::pcre2"]},
-    "cpp": {"Eigen3": ["Eigen3::Eigen"]}
+    "cpp": {"Eigen3": ["Eigen3::Eigen"], "dlib": ["dlib::dlib"]}
   },
   "graphviz_bin": "C:\\Program Files\\Graphviz\\bin",
   "doc_doxygen_folders": ["include", "src"],

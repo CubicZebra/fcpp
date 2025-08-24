@@ -1,12 +1,17 @@
 cmake_minimum_required(VERSION 3.28)
 file(READ "${CMAKE_CURRENT_SOURCE_DIR}/metadata.json" METADATA_JSON)
 string(JSON PROJECT_NAME_VALUE ERROR_VARIABLE json_error GET "${METADATA_JSON}" "name")
+string(JSON TARGET_NAMESPACE_VALUE ERROR_VARIABLE json_error GET "${METADATA_JSON}" "target")
 string(JSON PROJECT_VERSION_VALUE ERROR_VARIABLE json_error GET "${METADATA_JSON}" "version")
 string(JSON BUILD_CPPSTD ERROR_VARIABLE json_error GET "${METADATA_JSON}" "build_cppstd")
 string(JSON BUILD_CSTD ERROR_VARIABLE json_error GET "${METADATA_JSON}" "build_cstd")
 string(JSON STD_MODULES ERROR_VARIABLE json_error GET "${METADATA_JSON}" "std_modules")
 set(LIB_NAME "${PROJECT_NAME_VALUE}")
-set(PROJECT_NAMESPACE "${LIB_NAME}")
+if(NOT TARGET_NAMESPACE_VALUE STREQUAL "auto")
+    set(PROJECT_NAMESPACE "${TARGET_NAMESPACE_VALUE}")
+else()
+    set(PROJECT_NAMESPACE "${LIB_NAME}")
+endif()
 project(${LIB_NAME} LANGUAGES C CXX)
 
 
@@ -121,10 +126,17 @@ endif()
 
 target_link_libraries(${LIB_NAME} INTERFACE ${LIB_NAME}_c ${LIB_NAME}_cpp)
 
+if(WIN32)
+    set(LIB_CXX_PREFIX "")
+else()
+    set(LIB_CXX_PREFIX "lib")
+endif()
+
 set_target_properties(${LIB_NAME}_c PROPERTIES
         C_STANDARD ${BUILD_CSTD}
         C_STANDARD_REQUIRED ON
         C_EXTENSIONS OFF
+        PREFIX "${LIB_CXX_PREFIX}"
         OUTPUT_NAME "${LIB_NAME}_c"
 )
 
@@ -132,6 +144,7 @@ set_target_properties(${LIB_NAME}_cpp PROPERTIES
         CXX_STANDARD ${BUILD_CPPSTD}
         CXX_STANDARD_REQUIRED ON
         CXX_EXTENSIONS OFF
+        PREFIX "${LIB_CXX_PREFIX}"
         OUTPUT_NAME "${LIB_NAME}_cpp"
 )
 
@@ -235,6 +248,10 @@ install(FILES ${C_HEADERS}
 install(FILES ${CPP_HEADERS}
         DESTINATION include
         COMPONENT cpp_headers
+)
+
+install(TARGETS ${LIB_NAME}
+        EXPORT ${LIB_NAME}Targets
 )
 
 install(EXPORT ${LIB_NAME}Targets
