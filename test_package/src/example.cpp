@@ -2,6 +2,7 @@
 #include <iostream>
 #include <ctest.h>
 #include "cpptest.hpp"
+#include "net.hpp"
 // import "hello.hpp"; // C++23 only
 
 
@@ -26,5 +27,15 @@ int main() {
 
     const Color<int> red(255, 0, 0);
     red.print();
+
+    train_with_random_data();
+
+    int prediction = predict_random_sample();
+
+    std::cout << "prediction result for random sample: " << prediction << std::endl;
+    std::cout << "input structure: 28x28" << std::endl;
+    std::cout << "export structure: 10 (0-9 classes)" << std::endl;
+
+    return 0;
 
 }
