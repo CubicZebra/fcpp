@@ -250,10 +250,6 @@ install(FILES ${CPP_HEADERS}
         COMPONENT cpp_headers
 )
 
-install(TARGETS ${LIB_NAME}
-        EXPORT ${LIB_NAME}Targets
-)
-
 install(EXPORT ${LIB_NAME}Targets
         FILE ${LIB_NAME}Config.cmake
         NAMESPACE ${PROJECT_NAMESPACE}::

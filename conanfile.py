@@ -13,6 +13,10 @@ white_list = {f'<{_}>' for _ in ['algorithm', 'array', 'chrono', 'cmath', 'funct
                                  'thread', 'mutex', 'future', 'iostream', 'fstream', 'sstream', 'format', 'ranges',
                                  'mdspan', 'flat_map', 'flat_set']}
 _is_valid_import = (lambda x, c: x.startswith('#include ') and x[9:].strip() in c)
+conan_targets = {
+    'Eigen3::Eigen': 'eigen::eigen',
+    'ZLIB::ZLIB': 'zlib::zlib'
+}
 
 
 def _get_export_objects(x: list[str], tag: Literal['@exporter', '@attacher'] = '@exporter') -> list[str]:
@@ -272,12 +276,16 @@ class PackageRecipe(ConanFile):
 
     def package_info(self):
         self.cpp_info.libs = [self.name]
+        _c, _cpp = self._preparing_deps_links()
 
-        self.cpp_info.components["c_part"].libs = [f"{self.name}_c"]
-        self.cpp_info.components["c_part"].set_property("cmake_target_name", f"{self.name}_c")
-
-        self.cpp_info.components["cpp_part"].libs = [f"{self.name}_cpp"]
-        self.cpp_info.components["cpp_part"].set_property("cmake_target_name", f"{self.name}_cpp")
+        self.cpp_info.components[f"{self.name}_c"].libs = [f"{self.name}_c"]
+        self.cpp_info.components[f"{self.name}_c"].requires = [[_t := _.split('@')[1],
+                                                                conan_targets[_t] if _t in conan_targets.keys()
+                                                                else _t][-1] for _ in _c]
+        self.cpp_info.components[f"{self.name}_cpp"].libs = [f"{self.name}_cpp"]
+        self.cpp_info.components[f"{self.name}_cpp"].requires = [[_t := _.split('@')[1],
+                                                                  conan_targets[_t] if _t in conan_targets.keys()
+                                                                  else _t][-1] for _ in _cpp]
 
     @staticmethod
     def _call_syntax_suggestion():

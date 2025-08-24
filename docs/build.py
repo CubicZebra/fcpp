@@ -38,8 +38,9 @@ language_map = {'en': 'English', 'zh': 'Chinese', 'jp': 'Japanese'}
 
 
 def _no_recursive_clean_img(x: str):
-    for f in os.listdir(x):
-        os.remove(x + sep + f)
+    if os.path.exists(x):
+        for f in os.listdir(x):
+            os.remove(x + sep + f)
 
 
 def _idx_slicer(x: np.ndarray) -> list[list[int]]:
