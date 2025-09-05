@@ -41,12 +41,13 @@ class PackageTestConan(ConanFile):
         tc.generate()
 
     def _preparing_deps_links(self):
-        _common, _c, _cpp = [self.metadata.get('dependencies').get(_) for _ in ['common', 'c', 'cpp']]
+        _common, _c, _cpp, _test = [self.metadata.get('dependencies').get(_) for _ in ['common', 'c', 'cpp', 'test']]
         _c = {k: v if k not in _common.keys() else list(set(v).union(set(_common.get(k)))) for k, v in _c.items()}
         _cpp = {k: v if k not in _common.keys() else list(set(v).union(set(_common.get(k)))) for k, v in _cpp.items()}
+        _test_deps = [f"{k}@{' '.join(v)}" for k, v in _test.items()]
         _c_deps = [f"{k}@{' '.join(v)}" for k, v in {**_common, **_c}.items()]
         _cpp_deps = [f"{k}@{' '.join(v)}" for k, v in {**_common, **_cpp}.items()]
-        return list(set(_c_deps).union(set(_cpp_deps)))
+        return list(set(_c_deps).union(set(_cpp_deps)).union(set(_test_deps)))
 
     def _get_targets(self):
         _targets, _name = self.metadata.get('target'), self.metadata.get('name')

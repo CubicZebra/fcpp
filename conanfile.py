@@ -214,12 +214,19 @@ class PackageRecipe(ConanFile):
         deps.generate()
 
     def _preparing_deps_links(self):
-        _common, _c, _cpp = [self.meta.get('dependencies').get(_) for _ in ['common', 'c', 'cpp']]
+        # _common, _c, _cpp = [self.meta.get('dependencies').get(_) for _ in ['common', 'c', 'cpp']]
+        # _c = {k: v if k not in _common.keys() else list(set(v).union(set(_common.get(k)))) for k, v in _c.items()}
+        # _cpp = {k: v if k not in _common.keys() else list(set(v).union(set(_common.get(k)))) for k, v in _cpp.items()}
+        # _c_deps = [f"{k}@{' '.join(v)}" for k, v in {**_common, **_c}.items()]
+        # _cpp_deps = [f"{k}@{' '.join(v)}" for k, v in {**_common, **_cpp}.items()]
+        # return _c_deps, _cpp_deps
+        _common, _c, _cpp, _test = [self.meta.get('dependencies').get(_) for _ in ['common', 'c', 'cpp', 'test']]
         _c = {k: v if k not in _common.keys() else list(set(v).union(set(_common.get(k)))) for k, v in _c.items()}
         _cpp = {k: v if k not in _common.keys() else list(set(v).union(set(_common.get(k)))) for k, v in _cpp.items()}
+        _test_deps = [f"{k}@{' '.join(v)}" for k, v in _test.items()]
         _c_deps = [f"{k}@{' '.join(v)}" for k, v in {**_common, **_c}.items()]
         _cpp_deps = [f"{k}@{' '.join(v)}" for k, v in {**_common, **_cpp}.items()]
-        return _c_deps, _cpp_deps
+        return _c_deps, list(set(_cpp_deps).union(set(_test_deps)))
 
     def build(self):
         cmake = CMake(self)
@@ -289,21 +296,23 @@ class PackageRecipe(ConanFile):
 
     @staticmethod
     def _call_syntax_suggestion():
-        _content = ['============================= Syntax Guide =============================',
-                    '1.force 2 blank lines to distinguish global objects;',
-                    '2.Use // Conan::ImportStart and // Conan::ImportEnd in beginning,',
-                    '  wrapping #include lines;',
-                    '3.generate_modules_inplace is true in metadata.json can automatically,',
-                    '  generate modules (ixx, cppm) files;',
-                    '4.std_modules and user_modules in metadata.json affect import lines,',
-                    '5.std_modules make #include <stdlib> to import <stdlib>; in the right',
-                    '  order, when 3. is satisfied;',
-                    '6.user_modules make #include <usrlib.hpp> to import <usrlib.hpp> in',
-                    '  the right order, when 3. is satisfied;',
-                    '7.multi-lined doxygen /** ... */ with @exporter inside, will export',
-                    '  associated global object (see 1.) into generated modules;',
-                    '8.multi-lined doxygen /** ... */ with @attacher inside, will attach',
-                    '  associated global object (see 1.) into generated modules;',
-                    '9.suffix .h and .c for C; then .hpp and .cpp for C++;',
-                    '============================= Guide Over =============================', ]
+        _content = """
+        ============================= Syntax Guide =============================
+        1.force 2 blank lines to distinguish global objects;
+        2.Use // Conan::ImportStart and // Conan::ImportEnd in beginning,
+          wrapping #include lines;
+        3.generate_modules_inplace is true in metadata.json can automatically,
+          generate modules (ixx, cppm) files;
+        4.std_modules and user_modules in metadata.json affect import lines,
+        5.std_modules make #include <stdlib> to import <stdlib>; in the right
+          order, when 3. is satisfied;
+        6.user_modules make #include <usrlib.hpp> to import <usrlib.hpp> in
+          the right order, when 3. is satisfied;
+        7.multi-lined doxygen /** ... */ with @exporter inside, will export
+          associated global object (see 1.) into generated modules;
+        8.multi-lined doxygen /** ... */ with @attacher inside, will attach
+          associated global object (see 1.) into generated modules;
+        9.suffix .h and .c for C; then .hpp and .cpp for C++;
+        ============================= Guide Over =============================', 
+        """
         print(*_content, sep='\n')
