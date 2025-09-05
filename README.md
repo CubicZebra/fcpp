@@ -5,8 +5,14 @@ capabilities.
 
 ## Badges
 
-![GitHub License](https://img.shields.io/github/license/CubicZebra/fcpp)
-[![CodeFactor](https://www.codefactor.io/repository/github/cubiczebra/fcpp/badge)](https://www.codefactor.io/repository/github/cubiczebra/fcpp)
+![License](https://img.shields.io/github/license/CubicZebra/fcpp?color=blue&label=license)
+![CodeFactor Grade](https://img.shields.io/codefactor/grade/github/CubicZebra/fcpp?label=code%20quality&logo=codefactor)
+![C++](https://img.shields.io/badge/C%2B%2B-17%2F20%2F23-blue?logo=c%2B%2B&logoColor=white)
+![Modules](https://img.shields.io/badge/modules-C%2B%2B23%20experimental-purple?logo=c%2B%2B&logoColor=white)
+![CMake](https://img.shields.io/badge/cmake-3.28%2B-orange?logo=cmake)
+![Doxygen](https://img.shields.io/badge/docs-Doxygen-green?logo=doxygen&logoColor=white)
+![Python](https://img.shields.io/badge/python-3.11%2B-blue?logo=python)
+![Sphinx](https://img.shields.io/badge/docs-Sphinx-blue?logo=readthedocs&logoColor=white)
 
 ## Project Overview
 
