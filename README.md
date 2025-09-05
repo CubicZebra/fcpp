@@ -3,6 +3,11 @@
 This project is a C/C++ library built using Conan 2.0, featuring modern C and C++ standards support and module 
 capabilities.
 
+## Badges
+
+![GitHub License](https://img.shields.io/github/license/CubicZebra/fcpp)
+[![CodeFactor](https://www.codefactor.io/repository/github/cubiczebra/fcpp/badge)](https://www.codefactor.io/repository/github/cubiczebra/fcpp)
+
 ## Project Overview
 
 - **Language**: C/C++
@@ -22,7 +27,7 @@ capabilities.
 - Cross-platform compatibility (Windows, Linux, macOS)
 - Dual C and C++ interfaces with separate linkage targets
 - Doxygen annotation support for object exporting (`@exporter`, `@attacher`)
-- Automation documenting system via Doxygen
+- Automation documenting system via Doxygen and Sphinx
 - Importation, derivation and call relationship illustration through Graphviz
 
 ## Build Requirements

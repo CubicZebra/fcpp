@@ -14,7 +14,6 @@ TEST(SUM, PositiveNumbers) {
 
 
 int main(int argc, char **argv) {
-
     // C test
     test_c_compiler();
     test_c_zlib();
@@ -46,5 +45,4 @@ int main(int argc, char **argv) {
     // gtest section
     ::testing::InitGoogleTest(&argc, argv);
     return RUN_ALL_TESTS();
-
 }

@@ -274,8 +274,8 @@ class PackageRecipe(ConanFile):
         _intro, _tmp, _split, _extra = ([_.strip() for _ in _intro], [_.strip() for _ in _tmp],
                                         [_.strip() for _ in _split], [_.strip() for _ in _extra])
 
-        return  (_intro, _tmp, _split, _extra, _get_export_objects(_other_context, '@exporter') +
-                 _get_export_objects(_other_context, '@attacher'))
+        return (_intro, _tmp, _split, _extra, _get_export_objects(_other_context, '@exporter') +
+                _get_export_objects(_other_context, '@attacher'))
 
     def package(self):
         cmake = CMake(self)
