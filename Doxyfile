@@ -41,4 +41,4 @@ ALIASES += "attacher="
 # support examples source
 EXAMPLE_PATH = ./_%LAN%_v%VER%_docstrings/
 EXAMPLE_PATTERNS = *.cxx
-EXAMPLE_RECURSIVE  = YES
+EXAMPLE_RECURSIVE = YES
