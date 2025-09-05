@@ -2,8 +2,11 @@
 /.vscode/
 /.idea/
 /cmake-build-debug/
+.envs
 
 # doc system related
 /docs/_cache/
 /docs/doxygen/build/
 /docs/sphinx/build/
+/docs/sphinx/source/_static
+/docs/sphinx/source/_templates

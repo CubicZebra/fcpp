@@ -1,0 +1,79 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2025, fcpp-innovation
+# This file is distributed under the same license as the fcpp package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2025.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: fcpp 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-09-05 18:05+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: zh_CN\n"
+"Language-Team: zh_CN <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.17.0\n"
+
+#: ../../source/components/cmake.rst:2 0f2f88334d474438abcaea436309360e
+msgid "_`CMakeLists Configuration`"
+msgstr ""
+
+#: ../../source/components/cmake.rst:5 ceba46b86fcf4061832adae5fc47c058
+msgid "_`Overview`"
+msgstr ""
+
+#: ../../source/components/cmake.rst:7 8030be2063544f3cb1073430fe6c4682
+msgid ""
+"The CMakeLists.txt file is the core build configuration file for the fcpp"
+" project, responsible for project building, dependency management, and "
+"module compilation."
+msgstr ""
+
+#: ../../source/components/cmake.rst:11 6791213670d74d20a4728e2e3df4edb8
+msgid "_`Key Features`"
+msgstr ""
+
+#: ../../source/components/cmake.rst:13 45f6cead086b451c9fbf000ba0ab9de0
+msgid "Project initialization and metadata parsing"
+msgstr ""
+
+#: ../../source/components/cmake.rst:14 d9f7075aa55e44fa95ce702b811c539d
+msgid "Automatic source file collection and target creation"
+msgstr ""
+
+#: ../../source/components/cmake.rst:15 b491c35c9d8b42abada16c8f23ea4b7c
+msgid "Dependency management and linking"
+msgstr ""
+
+#: ../../source/components/cmake.rst:16 184ed263fae14d13b5f8ff4de328970d
+msgid "C++ module support configuration"
+msgstr ""
+
+#: ../../source/components/cmake.rst:17 625d47eeb177437ba9cd98c286bd2e47
+msgid "Installation rule definition"
+msgstr ""
+
+#: ../../source/components/cmake.rst:20 2e53ae7d99e24dbba13db1de83640ff2
+msgid "_`Main Configurations`"
+msgstr ""
+
+#: ../../source/components/cmake.rst:22 c60ee7edd0fa42a4950c9727b40d9eac
+msgid ""
+"The CMake configuration automatically reads project information from "
+"metadata.json, collects source files from include and src directories, "
+"creates separate static libraries for C and C++ components, and "
+"configures module support for C++23 and above."
+msgstr ""
+
+#: ../../source/components/cmake.rst:26 71eee7e9c74e40b8a509648b9dbdf075
+msgid ""
+"Platform-specific module compilation is handled with appropriate settings"
+" for MSVC (.ixx files) and GCC/Clang (.cppm files). The configuration "
+"also includes installation rules for libraries and headers."
+msgstr ""
+

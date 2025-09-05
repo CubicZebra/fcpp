@@ -1,0 +1,81 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2025, fcpp-innovation
+# This file is distributed under the same license as the fcpp package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2025.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: fcpp 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-09-05 18:05+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: zh_CN\n"
+"Language-Team: zh_CN <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.17.0\n"
+
+#: ../../source/components/conan.rst:2 95bd56b170d949f8a9d2adfc821c987d
+msgid "_`Conanfile Configuration`"
+msgstr ""
+
+#: ../../source/components/conan.rst:5 26a1d0188c184399b7f03cf5d70bce42
+msgid "_`Usage`"
+msgstr ""
+
+#: ../../source/components/conan.rst:7 b888d08efcc14ed2be84c1f75938b9de
+msgid ""
+"The conanfile.py is the Conan package configuration file for the fcpp "
+"project, responsible for dependency management, package metadata "
+"processing, and module generation."
+msgstr ""
+
+#: ../../source/components/conan.rst:11 2b6c6ecff6994e6992fd385ef858da61
+msgid "_`Main Features`"
+msgstr ""
+
+#: ../../source/components/conan.rst:13 d974ce143fb84b988307e39f1ae66d33
+msgid "Project metadata initialization"
+msgstr ""
+
+#: ../../source/components/conan.rst:14 a3c183f926fe421397a7bd3cd5a53b70
+msgid "Dependency management"
+msgstr ""
+
+#: ../../source/components/conan.rst:15 f2cb540c50a74e5dbd92517445439c33
+msgid "Module file generation and processing"
+msgstr ""
+
+#: ../../source/components/conan.rst:16 8636afa3abc241bdafaae3606048d723
+msgid "Build configuration generation"
+msgstr ""
+
+#: ../../source/components/conan.rst:17 13c68cce09594bae8152324b33ab48a6
+msgid "Package information definition"
+msgstr ""
+
+#: ../../source/components/conan.rst:20 04f30ccd2ec549e1b5bed23badf88062
+msgid "_`Core Functionality`"
+msgstr ""
+
+#: ../../source/components/conan.rst:22 01e9701ec15f4856b50e2b0a0bab75a2
+msgid ""
+"The PackageRecipe class handles project initialization by loading "
+"information from metadata.json. It processes module files by generating "
+"them from .hpp and .cpp files, handling export and attach markers. "
+"Dependency management is implemented by loading requirements from "
+"conandata.yml."
+msgstr ""
+
+#: ../../source/components/conan.rst:26 613889e8e4154f0ea2d4ff39d9eafa86
+msgid ""
+"The configuration generates CMake toolchain and dependencies files, and "
+"defines package components with their dependencies. Special features "
+"include C header compatibility processing and comment marker handling for"
+" export/attach operations."
+msgstr ""
+

@@ -1,0 +1,68 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2025, fcpp-innovation
+# This file is distributed under the same license as the fcpp package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2025.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: fcpp 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-09-05 18:05+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: zh_CN\n"
+"Language-Team: zh_CN <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.17.0\n"
+
+#: ../../source/components/meta.rst:2 e038fd36b2844c2f837dc9332b04cfc8
+msgid "_`Metadata Configuration`"
+msgstr ""
+
+#: ../../source/components/meta.rst:5 8ffc98a6547145b083c06687b0fd93dd
+msgid "_`Project-level Settings`"
+msgstr ""
+
+#: ../../source/components/meta.rst:7 7cc351e81aa641889931f4d341b1294f
+msgid ""
+"The metadata.json file contains the metadata configuration for the fcpp "
+"project, including basic project information, build configuration, and "
+"dependency definitions."
+msgstr ""
+
+#: ../../source/components/meta.rst:11 2a63b984d8be4c0595f65d0af4bd364a
+msgid "_`File Structure`"
+msgstr ""
+
+#: ../../source/components/meta.rst:13 c129fc51da494d4f9b97452c658ce102
+msgid ""
+"The JSON file includes sections for basic project information (name, "
+"version, license, description), authors and maintainers, build "
+"configuration (CMake version, C/C++ standards), module settings, "
+"dependency definitions, and documentation configuration."
+msgstr ""
+
+#: ../../source/components/meta.rst:18 1642bd1c563b4f07864db733210c174f
+msgid "_`Key Settings`"
+msgstr ""
+
+#: ../../source/components/meta.rst:20 8f6171353602444d8058ca571a7c82c6
+msgid ""
+"Basic project information defines the package identity. Build "
+"configuration specifies tool versions and language standards. Module "
+"settings control standard and user module usage. Dependencies are "
+"categorized into common, C-specific, and C++-specific requirements. "
+"Documentation settings configure Doxygen generation."
+msgstr ""
+
+#: ../../source/components/meta.rst:24 a1dc0c323d4643299ad758742d74cdc4
+msgid ""
+"Example configuration demonstrates how to set up a project with C++20 "
+"support, module generation, and common dependencies like Boost and "
+"OpenCV."
+msgstr ""
+

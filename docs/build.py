@@ -17,6 +17,11 @@ _pair_capture = {
     'hpp': 'cpp',
     'cpp': 'hpp'
 }
+lang_tag_map = {
+    'en': 'en',
+    'zh': 'zh_CN',
+    'jp': 'ja'
+}
 
 
 def _get_root_path() -> str:
@@ -30,7 +35,7 @@ def _inherit_root_metadata():
 
 
 _hit_com_tag = re.compile(r" \* @")
-_hit_lang_tag = re.compile(rf"( \* @[a-z]+).*\[({'|'.join(_inherit_root_metadata().get('doc_doxygen_languages'))})] ")
+_hit_lang_tag = re.compile(rf"( \* @[a-z]+).*\[({'|'.join(_inherit_root_metadata().get('doc_languages'))})] ")
 _hit_free_tag = re.compile(r" \* [^@]+")
 _hit_file_doc = re.compile(r"\n?/\*!(.|\n)*@file(.|\n)*@defgroup")
 _hit_since_command = re.compile(r"\n?/\*\*(.|\n)*@since ")
@@ -285,6 +290,7 @@ class AutomationDoc:
         self.meta = _inherit_root_metadata()
         self._copy_images_for_doxygen_and_sphinx()
         self.doxygen_automation()
+        self.sphinx_automation()
 
     def doxygen_automation(self):
         self._doxygen_scripts_from_sources_to_langs()
@@ -293,6 +299,22 @@ class AutomationDoc:
         self._doxygen_config_execution()
         self._doxygen_export_navigation()
         self._doxygen_build_clean()
+
+    def sphinx_automation(self):
+        _path = "." + sep + "docs" + sep + "sphinx"
+        subprocess.run(["make", "-C", _path, "clean"])
+        subprocess.run(["make", "-C", _path, "gettext"])
+        _cmd = ["sphinx-intl", "update", "-p", _path + sep + "build" + sep + "gettext", "-d", _path + sep + "locales"]
+        for _ in self.meta.get('doc_languages'):
+            if _ != 'en':
+                _cmd.append('-l')
+                _cmd.append(lang_tag_map[_])
+        subprocess.run(_cmd)
+        for _ in self.meta.get('doc_languages'):
+            if _ != 'en':
+                subprocess.run(["make", "-C", _path, "-e", f"SPHINXOPTS=-D language={lang_tag_map[_]}", "html"])
+        subprocess.run(["make", "-C", _path, "clean"])
+        subprocess.run(["make", "-C", _path, "html"])
 
     def _copy_images_for_doxygen_and_sphinx(self):
         # # customize prefix syntax here
@@ -325,11 +347,11 @@ class AutomationDoc:
         else:  # make folders
             os.mkdir(_build_folder)
 
-        for _lang in self.meta.get('doc_doxygen_languages'):
+        for _lang in self.meta.get('doc_languages'):
             _lang_folder = _build_folder + sep + _lang
             os.mkdir(_lang_folder)
             os.mkdir(_lang_folder + sep + f'_{_lang}_docstrings')
-            for _ver in self.meta.get('doc_doxygen_versions'):
+            for _ver in self.meta.get('doc_versions'):
                 os.mkdir(_lang_folder + sep + f'v{_ver}')
 
         # move filtered docstring files
@@ -339,8 +361,8 @@ class AutomationDoc:
             _f = k + sep + v
             with open(_f, 'r', encoding='utf-8') as f:
                 _tmp = f.readlines()
-            for _lang in self.meta.get('doc_doxygen_languages'):
-                _tmp_filtered = _language_filter(_tmp, self.meta.get('doc_doxygen_languages'), _lang)
+            for _lang in self.meta.get('doc_languages'):
+                _tmp_filtered = _language_filter(_tmp, self.meta.get('doc_languages'), _lang)
 
                 with open(_build_folder + sep + _lang + sep + f'_{_lang}_docstrings' + sep + v,
                           'w', encoding='utf-8') as f:
@@ -349,9 +371,9 @@ class AutomationDoc:
     def _doxygen_scripts_from_langs_to_vers(self):
 
         _build_folder = self._doxygen_root + sep + 'build'
-        for _lang in self.meta.get('doc_doxygen_languages'):
+        for _lang in self.meta.get('doc_languages'):
             _f_out = _build_folder + sep + _lang
-            for _ver in self.meta.get('doc_doxygen_versions'):
+            for _ver in self.meta.get('doc_versions'):
                 _f_in = _f_out + sep + f'v{_ver}'
                 _docstrings = f'_{_lang}_v{_ver}_docstrings'
 
@@ -390,9 +412,9 @@ class AutomationDoc:
         _meta_config = _meta_config.replace("%GRAPHVIZ_BIN%", self.meta.get('graphviz_bin'))
 
         _build_folder = self._doxygen_root + sep + 'build'
-        for _lang in self.meta.get('doc_doxygen_languages'):
+        for _lang in self.meta.get('doc_languages'):
             _f_out = _build_folder + sep + _lang
-            for _ver in self.meta.get('doc_doxygen_versions'):
+            for _ver in self.meta.get('doc_versions'):
                 _f_in = _f_out + sep + f'v{_ver}'
                 _meta = _meta_config.replace("%LAN%", _lang)
                 _meta = _meta.replace("%VER%", _ver)
@@ -404,25 +426,21 @@ class AutomationDoc:
     def _doxygen_config_execution(self):
 
         _build_folder = self._doxygen_root + sep + 'build'
-        for _lang in self.meta.get('doc_doxygen_languages'):
+        for _lang in self.meta.get('doc_languages'):
             _f_out = _build_folder + sep + _lang
-            for _ver in self.meta.get('doc_doxygen_versions'):
-                _f_in = _f_out + sep + f'v{_ver}'
+            for _ver in self.meta.get('doc_versions'):
 
-                result = subprocess.run(
+                _f_in = _f_out + sep + f'v{_ver}'
+                subprocess.run(
                     ["doxygen", "./Doxyfile.in"],
                     cwd=Path(_f_in),
                     capture_output=True,
                     text=True
                 )
-                if result.returncode == 0:
-                    print(f"Documentation of [{_lang}, v{_ver}] successfully generated")
-                else:
-                    print(f"Documentation of [{_lang}, v{_ver}] in {_f_in} was generated failed")
-                    print(result.stderr)
+                print(f"Documentation of [{_lang}, v{_ver}] successfully generated")
 
     def _doxygen_export_navigation(self):
-        _tmp = _generate_docs_index(self.meta.get('doc_doxygen_languages'), self.meta.get('doc_doxygen_versions'),
+        _tmp = _generate_docs_index(self.meta.get('doc_languages'), self.meta.get('doc_versions'),
                                     self.meta.get('name'))
         with open(self._doxygen_root + sep + 'build' + sep + 'docs.html', 'w', encoding='utf-8') as f:
             f.write(_tmp)
@@ -459,4 +477,4 @@ class AutomationDoc:
 
 
 if __name__ == '__main__':
-    A = AutomationDoc()
+    AutomationDoc()
