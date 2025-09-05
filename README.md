@@ -61,23 +61,31 @@ built ones. If the later, more detailed configuration is in discussion.
 
 ```
 project-root/
-├── conanfile.py         # Conan recipe
-├── CMakeLists.txt       # CMake build framework
-├── metadata.json        # Project metadata configuration (name, version, etc)
-├── conandata.yml        # Dependency specifications, Conan plugin support
-├── include/             # Public headers
-├── ├── dox/             # Pure documentations' folder
-│   │   ├── demos/       # Examples catelogue
-│   │   │   ├── *.dox    # Documenting docstring
-│   │   │   └── *.cxx    # Example codes
-│   │   └── *.dox        # Main pages and etc
-│   ├── *.h              # C interface headers
-│   └── *.hpp            # C++ interface headers
-├── src/                 # Implementation files
-│   ├── *.c              # C sources
-│   ├── *.cpp            # C++ sources
-│   └── (auto-generated) # Module files (*.ixx/*.cppm) in experimental
-└── LICENSE              # Project license
+├── conanfile.py             # Conan recipe
+├── CMakeLists.txt           # CMake build framework
+├── metadata.json            # Project metadata configuration (name, version, etc)
+├── conandata.yml            # Dependency specifications, Conan plugin support
+├── LICENSE                  # Project license
+├── include/                 # Public headers
+│   ├── *.h                  # C interface headers
+│   └── *.hpp                # C++ interface headers
+├── src/                     # Implementation files
+│   ├── *.c                  # C sources
+│   ├── *.cpp                # C++ sources
+│   └── *.ixx/*.cppm         # Auto-generated Module files (in experimental)
+└── docs/                    # Documentations root
+    ├── doxygen/             # Doxygen system main root
+    │   ├── dox/             # Pure documentations' folder
+    │   │   ├── demos/       # Examples catelogue
+    │   │   │   ├── *.dox    # Documenting docstring
+    │   │   │   └── *.cxx    # Example codes
+    │   │   └── *.dox        # Main pages and etc
+    │   └── ...
+    ├── sphinx/              # Sphinx system main root
+    │   ├── source/          # Source files of sphinx system
+    │   ├── locales/         # Pot files for internalization
+    │   └── ...
+    └── images/              # Static images for doxygen/sphinx system
 ```
 
 ## Module Generation
@@ -90,7 +98,7 @@ When `generate_modules_inplace` is enabled in `metadata.json`:
     - `@exporter`: Exports symbols in modules
     - `@attacher`: Attaches symbols to modules
 
-This feature is in experimental now, however the specific syntax can make the existing project a ease 
+This feature is experimental now, however, the specific syntax can make the existing project a ease 
 migration to fit the future C++ standard.
 
 ## Compiler Support Matrix
