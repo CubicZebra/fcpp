@@ -28,6 +28,15 @@ def _recursive_find(root: str, obj_files: list[str]):
             yield from _recursive_find(_f, obj_files)
 
 
+def _entry_lists() -> list[str]:
+    return ['#include <gtest/gtest.h>\n',
+            '\n',
+            'int main(int argc, char **argv) {\n',
+            '    ::testing::InitGoogleTest(&argc, argv);\n',
+            '    return RUN_ALL_TESTS();\n',
+            '}\n']
+
+
 class PackageTestConan(ConanFile):
     settings = "os", "compiler", "build_type", "arch"
     generators = "CMakeDeps"
@@ -49,6 +58,9 @@ class PackageTestConan(ConanFile):
             self.requires(req)
 
     def generate(self):
+        if self.metadata.get('trigger_tests'):
+            self._add_entries()
+
         build_env, run_env = VirtualBuildEnv(self), VirtualRunEnv(self)
         build_env.generate()
         run_env.generate(scope="run")
@@ -110,6 +122,7 @@ class PackageTestConan(ConanFile):
                 print('CTest Crashed:', err)
             finally:
                 target_folder = self.recipe_folder + sep + 'test' + sep + 'export'
+
                 if self.metadata.get('saving_tests_log'):
                     obj_folder = self.recipe_folder + sep + 'build'
                     report = [_ for _ in _recursive_find(obj_folder, ['LastTest.log'])][0]  # need robust
@@ -120,6 +133,24 @@ class PackageTestConan(ConanFile):
                 else:
                     if os.path.exists(_f := target_folder + sep + 'TestResult.log'):
                         os.remove(_f)
+
+                self._remove_entries()
+
+    def _add_entries(self):
+        _f_stress = self.recipe_folder + sep + 'test' + sep + 'stress'
+        _f_unit = self.recipe_folder + sep + 'test' + sep + 'unit'
+        if not os.path.exists(_m := _f_stress + sep + 'main.cpp'):
+            with open(_m, 'w', encoding='utf-8') as f:
+                f.write(''.join(_entry_lists()))
+        if not os.path.exists(_m := _f_unit + sep + 'main.cpp'):
+            with open(_m, 'w', encoding='utf-8') as f:
+                f.write(''.join(_entry_lists()))
+
+    def _remove_entries(self):
+        if os.path.exists(_f1 := self.recipe_folder + sep + 'test' + sep + 'stress' + sep + 'main.cpp'):
+            os.remove(_f1)
+        if os.path.exists(_f2 := self.recipe_folder + sep + 'test' + sep + 'unit' + sep + 'main.cpp'):
+            os.remove(_f2)
 
 
 if __name__ == '__main__':
