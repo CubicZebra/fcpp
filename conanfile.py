@@ -15,7 +15,9 @@ white_list = {f'<{_}>' for _ in ['algorithm', 'array', 'chrono', 'cmath', 'funct
 _is_valid_import = (lambda x, c: x.startswith('#include ') and x[9:].strip() in c)
 conan_targets = {
     'Eigen3::Eigen': 'eigen::eigen',
-    'ZLIB::ZLIB': 'zlib::zlib'
+    'ZLIB::ZLIB': 'zlib::zlib',
+    'Catch2::Catch2': 'catch2::catch2',
+    'Catch2::Catch2WithMain': 'catch2::catch2_with_main'
 }
 
 
@@ -214,12 +216,6 @@ class PackageRecipe(ConanFile):
         deps.generate()
 
     def _preparing_deps_links(self):
-        # _common, _c, _cpp = [self.meta.get('dependencies').get(_) for _ in ['common', 'c', 'cpp']]
-        # _c = {k: v if k not in _common.keys() else list(set(v).union(set(_common.get(k)))) for k, v in _c.items()}
-        # _cpp = {k: v if k not in _common.keys() else list(set(v).union(set(_common.get(k)))) for k, v in _cpp.items()}
-        # _c_deps = [f"{k}@{' '.join(v)}" for k, v in {**_common, **_c}.items()]
-        # _cpp_deps = [f"{k}@{' '.join(v)}" for k, v in {**_common, **_cpp}.items()]
-        # return _c_deps, _cpp_deps
         _common, _c, _cpp, _test = [self.meta.get('dependencies').get(_) for _ in ['common', 'c', 'cpp', 'test']]
         _c = {k: v if k not in _common.keys() else list(set(v).union(set(_common.get(k)))) for k, v in _c.items()}
         _cpp = {k: v if k not in _common.keys() else list(set(v).union(set(_common.get(k)))) for k, v in _cpp.items()}

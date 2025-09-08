@@ -10,3 +10,6 @@
 /docs/sphinx/build/
 /docs/sphinx/source/_static
 /docs/sphinx/source/_templates
+
+# test framework
+/test_package/test/export

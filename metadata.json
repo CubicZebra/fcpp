@@ -26,5 +26,7 @@
   "doc_languages": ["en", "zh"],
   "doc_versions": ["1.0", "2.0"],
   "doc_doxygen_folders": ["include", "src", "docs\\doxygen\\dox"],
-  "doc_doxygen_suffix": ["h", "c", "hpp", "cpp", "dox", "cxx"]
+  "doc_doxygen_suffix": ["h", "c", "hpp", "cpp", "dox", "cxx"],
+  "trigger_tests": true,
+  "saving_tests_log": true
 }

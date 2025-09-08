@@ -1,19 +1,13 @@
 #include <vector>
 #include <iostream>
 #include <ctest.h>
-#include <gtest/gtest.h>
 #include "cpptest.hpp"
 #include "net.hpp"
 // import "hello.hpp"; // C++23 only
 
 
-TEST(SUM, PositiveNumbers) {
-    const std::vector<int> nums = {1, 2, 3, 4, 5};
-    EXPECT_EQ(test_sum(nums), 15);
-}
 
-
-int main(int argc, char **argv) {
+int main() {
     // C test
     test_c_compiler();
     test_c_zlib();
@@ -42,7 +36,5 @@ int main(int argc, char **argv) {
     std::cout << "input structure: 28x28" << std::endl;
     std::cout << "export structure: 10 (0-9 classes)" << std::endl;
 
-    // gtest section
-    ::testing::InitGoogleTest(&argc, argv);
-    return RUN_ALL_TESTS();
+    return 0;
 }

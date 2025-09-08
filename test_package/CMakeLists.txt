@@ -43,7 +43,7 @@ function(split_conan_dependency INPUT_STR PACKAGE_NAME TARGETS)
 endfunction()
 
 
-add_executable(example src/example.cpp)
+add_executable(main main.cpp)
 
 
 if(NOT CXX_DEPS STREQUAL "[]")
@@ -51,8 +51,25 @@ if(NOT CXX_DEPS STREQUAL "[]")
     foreach (CXX_ITEM IN LISTS PARSED_CXX_DEPS)
         split_conan_dependency(CXX_ITEM CXX_PKG_NAME CXX_PKG_TARGETS)
         find_package(${CXX_PKG_NAME} REQUIRED)
-        target_link_libraries(example PRIVATE ${CXX_PKG_TARGETS})
+        target_link_libraries(main PRIVATE ${CXX_PKG_TARGETS})
     endforeach ()
 endif()
 
-target_include_directories(example PRIVATE ${${LIB_NAME}_INCLUDE_DIRS})
+target_include_directories(main PRIVATE ${${LIB_NAME}_INCLUDE_DIRS})
+
+
+if (TRIGGER_TESTS)
+    find_package(${LIB_NAME} REQUIRED)
+    find_package(GTest REQUIRED)
+    enable_testing()
+
+    file(GLOB TEST_SOURCES_U "test/unit/*.cpp")
+    add_executable(unit_tests ${TEST_SOURCES_U})
+    target_link_libraries(unit_tests PRIVATE ${LIB_NAME}::${LIB_NAME} GTest::gtest)
+    add_test(NAME unit_tests COMMAND unit_tests)
+
+    file(GLOB TEST_SOURCES_S "test/stress/*.cpp")
+    add_executable(stress_tests ${TEST_SOURCES_S})
+    target_link_libraries(stress_tests PRIVATE ${LIB_NAME}::${LIB_NAME} GTest::gtest)
+    add_test(NAME stress_tests COMMAND stress_tests)
+endif ()
