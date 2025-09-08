@@ -301,7 +301,7 @@ class AutomationDoc:
         self._doxygen_build_clean()
 
     def sphinx_automation(self):
-        _path = "." + sep + "docs" + sep + "sphinx"
+        _path = sep.join(_root_path_list + ['docs', 'sphinx'])
         subprocess.run(["make", "-C", _path, "clean"])
         subprocess.run(["make", "-C", _path, "gettext"])
         _cmd = ["sphinx-intl", "update", "-p", _path + sep + "build" + sep + "gettext", "-d", _path + sep + "locales"]
@@ -429,15 +429,8 @@ class AutomationDoc:
         for _lang in self.meta.get('doc_languages'):
             _f_out = _build_folder + sep + _lang
             for _ver in self.meta.get('doc_versions'):
-
-                _f_in = _f_out + sep + f'v{_ver}'
-                subprocess.run(
-                    ["doxygen", "./Doxyfile.in"],
-                    cwd=Path(_f_in),
-                    capture_output=True,
-                    text=True
-                )
-                print(f"Documentation of [{_lang}, v{_ver}] successfully generated")
+                subprocess.run(["doxygen", 'Doxyfile.in'], cwd=Path(_f_out + sep + f'v{_ver}'))
+                print(f"Doxygen build system: Documentation of [{_lang}, v{_ver}] successfully generated")
 
     def _doxygen_export_navigation(self):
         _tmp = _generate_docs_index(self.meta.get('doc_languages'), self.meta.get('doc_versions'),

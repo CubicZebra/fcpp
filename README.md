@@ -1,6 +1,6 @@
 # A Modern C/CPP Library Build System
 
-This project is a C/C++ library built using Conan 2.0, featuring modern C and C++ standards support and module 
+This project is a C/C++ library built using Conan 2.0, featuring modern C and C++ standard support and module 
 capabilities.
 
 ## Badges
@@ -11,7 +11,7 @@ capabilities.
 ![Modules](https://img.shields.io/badge/modules-C%2B%2B23%20experimental-purple?logo=c%2B%2B&logoColor=white)
 ![CMake](https://img.shields.io/badge/cmake-3.28%2B-orange?logo=cmake)
 ![Doxygen](https://img.shields.io/badge/docs-Doxygen-green?logo=doxygen&logoColor=white)
-![Python](https://img.shields.io/badge/python-3.11%2B-blue?logo=python)
+![Python](https://img.shields.io/badge/python-3.10%2B-blue?logo=python)
 ![Sphinx](https://img.shields.io/badge/docs-Sphinx-blue?logo=readthedocs&logoColor=white)
 
 ## Project Overview
