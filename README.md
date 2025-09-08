@@ -45,6 +45,17 @@ capabilities.
     - MSVC
     - Apple Clang
 
+## Documenting Requirements
+
+- Doxygen
+- Graphviz
+- sphinx
+- sphinx_intl
+
+## Test Requirements
+
+- GTest
+
 ## Crash Course of Build
 
 ### 1. Build then test your library
@@ -84,19 +95,26 @@ project-root/
 │   ├── *.c                  # C sources
 │   ├── *.cpp                # C++ sources
 │   └── *.ixx/*.cppm         # Auto-generated Module files (in experimental)
-└── docs/                    # Documentations root
-    ├── doxygen/             # Doxygen system main root
-    │   ├── dox/             # Pure documentations' folder
-    │   │   ├── demos/       # Examples catelogue
-    │   │   │   ├── *.dox    # Documenting docstring
-    │   │   │   └── *.cxx    # Example codes
-    │   │   └── *.dox        # Main pages and etc
-    │   └── ...
-    ├── sphinx/              # Sphinx system main root
-    │   ├── source/          # Source files of sphinx system
-    │   ├── locales/         # Pot files for internalization
-    │   └── ...
-    └── images/              # Static images for doxygen/sphinx system
+├── docs/                    # Documentations root
+│   ├── doxygen/             # Doxygen system main root
+│   │   ├── dox/             # Pure documentations' folder
+│   │   │   ├── demos/       # Examples catelogue
+│   │   │   │   ├── *.dox    # Documenting docstring
+│   │   │   │   └── *.cxx    # Example codes
+│   │   │   └── *.dox        # Main pages and etc
+│   │   └── ...
+│   ├── sphinx/              # Sphinx system main root
+│   │   ├── source/          # Source files of sphinx system
+│   │   ├── locales/         # Pot files for internalization
+│   │   └── ...
+│   └── images/              # Static images for doxygen/sphinx system
+└── test_pacakge/            # test project
+    ├── export/              # log for testing results
+    ├── stress/ 
+    │   └── *.cpp            # scripts for stress testing
+    ├── unit/
+    │   └── *.cpp            # scripts for unit testing
+    └── main.cpp             # no testing validation program
 ```
 
 ## Module Generation
