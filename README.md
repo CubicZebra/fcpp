@@ -44,13 +44,14 @@ capabilities.
     - Clang
     - MSVC
     - Apple Clang
+- CMake
 
 ## Documenting Requirements
 
 - Doxygen
 - Graphviz
 - sphinx
-- sphinx_intl
+- sphinx-intl
 
 ## Test Requirements
 
@@ -108,13 +109,15 @@ project-root/
 │   │   ├── locales/         # Pot files for internalization
 │   │   └── ...
 │   └── images/              # Static images for doxygen/sphinx system
-└── test_pacakge/            # test project
-    ├── export/              # log for testing results
+└── test_pacakge/            # Test project
+    ├── export/              # Log for testing results
     ├── stress/ 
-    │   └── *.cpp            # scripts for stress testing
+    │   └── *.cpp            # Scripts for stress testing
     ├── unit/
-    │   └── *.cpp            # scripts for unit testing
-    └── main.cpp             # no testing validation program
+    │   └── *.cpp            # Scripts for unit testing
+    ├── main.cpp             # No testing validation program
+    ├── conanfile.py         # Conan recipe for test_package
+    └── CMakeLists.txt       # CMake build workflow for test_package
 ```
 
 ## Module Generation

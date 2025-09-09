@@ -58,9 +58,7 @@ class PackageTestConan(ConanFile):
             self.requires(req)
 
     def generate(self):
-        if self.metadata.get('trigger_tests'):
-            self._add_entries()
-
+        self._add_entries()
         build_env, run_env = VirtualBuildEnv(self), VirtualRunEnv(self)
         build_env.generate()
         run_env.generate(scope="run")
@@ -137,14 +135,15 @@ class PackageTestConan(ConanFile):
                 self._remove_entries()
 
     def _add_entries(self):
-        _f_stress = self.recipe_folder + sep + 'test' + sep + 'stress'
-        _f_unit = self.recipe_folder + sep + 'test' + sep + 'unit'
-        if not os.path.exists(_m := _f_stress + sep + 'main.cpp'):
-            with open(_m, 'w', encoding='utf-8') as f:
-                f.write(''.join(_entry_lists()))
-        if not os.path.exists(_m := _f_unit + sep + 'main.cpp'):
-            with open(_m, 'w', encoding='utf-8') as f:
-                f.write(''.join(_entry_lists()))
+        if self.metadata.get('trigger_tests'):
+            _f_stress = self.recipe_folder + sep + 'test' + sep + 'stress'
+            _f_unit = self.recipe_folder + sep + 'test' + sep + 'unit'
+            if not os.path.exists(_m := _f_stress + sep + 'main.cpp'):
+                with open(_m, 'w', encoding='utf-8') as f:
+                    f.write(''.join(_entry_lists()))
+            if not os.path.exists(_m := _f_unit + sep + 'main.cpp'):
+                with open(_m, 'w', encoding='utf-8') as f:
+                    f.write(''.join(_entry_lists()))
 
     def _remove_entries(self):
         if os.path.exists(_f1 := self.recipe_folder + sep + 'test' + sep + 'stress' + sep + 'main.cpp'):
