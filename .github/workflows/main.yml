@@ -35,6 +35,7 @@ jobs:
       - name: Install Conan
         run: |
           pip install conan
+          pip install numpy
 
       - name: Configure Conan
         run: |
