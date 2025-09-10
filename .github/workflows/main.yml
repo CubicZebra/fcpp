@@ -15,10 +15,12 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [windows-latest, ubuntu-latest]
+        os: [windows-latest, ubuntu-latest, macos-latest]
         build_type: [Debug, Release]
         exclude:
           - os: windows-latest
+            build_type: Debug
+          - os: macos-latest
             build_type: Debug
 
     steps:
@@ -43,6 +45,20 @@ jobs:
         if: matrix.os == 'ubuntu-latest'
         run: |
           sudo apt install -y libnsl-dev
+
+      - name: Install LLVM and Set as Default Compiler (macOS)
+        if: matrix.os == 'macos-latest'
+        run: |
+          HOMEBREW_PREFIX=$(brew --prefix)
+          brew install llvm
+          export CC="$HOMEBREW_PREFIX/opt/llvm/bin/clang"
+          export CXX="$HOMEBREW_PREFIX/opt/llvm/bin/clang++"
+          echo "$HOMEBREW_PREFIX/opt/llvm/bin" >> $GITHUB_PATH
+          echo "CC=$CC" >> $GITHUB_ENV
+          echo "CXX=$CXX" >> $GITHUB_ENV
+          conan profile detect --force
+        env:
+          HOMEBREW_NO_AUTO_UPDATE: 1
 
       - name: Cache Conan packages
         uses: actions/cache@v4
