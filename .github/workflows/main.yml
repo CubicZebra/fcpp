@@ -17,7 +17,7 @@ jobs:
       matrix:
         os: [ubuntu-latest, windows-latest]
         build_type: [Debug, Release]
-        compiler: [gcc, clang]
+        compiler_type: [gcc, clang]
         exclude:
           - os: windows-latest
             build_type: Debug
@@ -35,32 +35,20 @@ jobs:
         run: |
           pip install conan
 
-      - name: System dependencies (Ubuntu)
-        if: matrix.os == 'ubuntu-latest'
-        run: |
-          if [ "${{ matrix.compiler }}" = "gcc" ]; then
-            sudo apt install -y build-essential
-          elif [ "${{ matrix.compiler }}" = "clang" ]; then
-            sudo apt install -y clang
-          fi
-          sudo apt install -y libnsl-dev
-
       - name: Configure Conan
         run: |
           echo "CONAN_HOME=${{ env.CONAN_HOME }}" >> $GITHUB_ENV
           conan profile detect --force
-          
-          if [ "${{ matrix.os }}" == "ubuntu-latest" ]; then
-            # Set compiler based on matrix
-            if [ "${{ matrix.compiler }}" == "gcc" ]; then
-              conan profile update settings.compiler=gcc default
-              conan profile update settings.compiler.version=$(gcc --version | head -n1 | grep -oE '[0-9]+' | head -n1) default
-              conan profile update settings.compiler.libcxx=libstdc++11 default
-            elif [ "${{ matrix.compiler }}" == "clang" ]; then
-              conan profile update settings.compiler=clang default
-              conan profile update settings.compiler.version=$(clang --version | head -n1 | grep -oE '[0-9]+' | head -n1) default
-              conan profile update settings.compiler.libcxx=libstdc++11 default
-            fi
+
+      - name: System dependencies (Ubuntu)
+        if: matrix.os == 'ubuntu-latest'
+        run: |
+          sudo apt install -y libnsl-dev
+          if [ "${{ matrix.os }}" == "ubuntu-latest" ] && [ "${{ matrix.compiler_type }}" == "clang" ]; then
+            sudo apt install -y clang
+            conan profile update settings.compiler=clang default
+            conan profile update settings.compiler.version=$(clang --version | head -n1 | grep -oE '[0-9]+' | head -n1) default
+            conan profile update settings.compiler.libcxx=libstdc++11 default
           fi
 
       - name: Cache Conan packages
