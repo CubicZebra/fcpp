@@ -126,6 +126,8 @@ class PackageTestConan(ConanFile):
                     report = [_ for _ in _recursive_find(obj_folder, ['LastTest.log'])][0]  # need robust
                     with open(report, 'r', encoding='utf-8') as f:
                         _content = f.readlines()
+                    if not os.path.exists(target_folder):
+                        os.mkdir(target_folder)
                     with open(target_folder + sep + 'TestResult.log', 'w', encoding='utf-8') as f:
                         f.write(''.join(_content))
                 else:

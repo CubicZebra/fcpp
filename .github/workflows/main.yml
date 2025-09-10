@@ -50,7 +50,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: ${{ env.CONAN_HOME }}
-          key: conan-${{ runner.os }}-${{ hashFiles('**/conanfile.py', '**/conan.lock') }}
+          key: conan-${{ runner.os }}-${{ hashFiles('conanfile.py', 'conan.lock') }}
           restore-keys: |
             conan-${{ runner.os }}-
 

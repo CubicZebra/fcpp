@@ -12,4 +12,4 @@
 /docs/sphinx/source/_templates
 
 # test framework
-/test_package/test/export
+/test_package/test/export/TestResult.log
