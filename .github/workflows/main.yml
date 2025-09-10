@@ -39,7 +39,7 @@ jobs:
 
       - name: Configure Conan
         run: |
-          conan config set home $CONAN_HOME
+          echo "CONAN_HOME=${{ env.CONAN_HOME }}" >> $GITHUB_ENV
           conan profile detect --force
 
       - name: Install system dependencies (Ubuntu)
