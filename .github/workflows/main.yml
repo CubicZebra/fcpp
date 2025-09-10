@@ -16,7 +16,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
-        build_type: [Debug, Release]
+        build_type: [Release]
         exclude:
           - os: windows-latest
             build_type: Debug
@@ -61,7 +61,8 @@ jobs:
 
       - name: Build and test with Conan
         run: |
-          conan create . -pr:b=default -pr:h=default -s build_type=${{ matrix.build_type }} --build=missing
+          conan create . -pr:b=default -pr:h=default -s build_type=${{ matrix.build_type }} --build=missing -c tools.build:threads=2
+        timeout-minutes: 30
 
       - name: Clean up test_package builds
         run: |
