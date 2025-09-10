@@ -41,6 +41,11 @@ jobs:
           echo "CONAN_HOME=${{ env.CONAN_HOME }}" >> $GITHUB_ENV
           conan profile detect --force
 
+      - name: System dependencies (Ubuntu)
+        if: matrix.os == 'ubuntu-latest'
+        run: |
+          sudo apt install -y libnsl-dev
+
       - name: Cache Conan packages
         uses: actions/cache@v4
         with:
