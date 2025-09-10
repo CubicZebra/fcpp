@@ -1,4 +1,4 @@
-name: C/CPP CI Pipeline
+name: Build CI
 
 on:
   push:
@@ -15,12 +15,11 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [macos-latest]
+        os: [ubuntu-latest, windows-latest]
         build_type: [Debug, Release]
+        compiler: [gcc, clang]
         exclude:
           - os: windows-latest
-            build_type: Debug
-          - os: macos-latest
             build_type: Debug
 
     steps:
@@ -36,26 +35,33 @@ jobs:
         run: |
           pip install conan
 
+      - name: System dependencies (Ubuntu)
+        if: matrix.os == 'ubuntu-latest'
+        run: |
+          if [ "${{ matrix.compiler }}" = "gcc" ]; then
+            sudo apt install -y build-essential
+          elif [ "${{ matrix.compiler }}" = "clang" ]; then
+            sudo apt install -y clang
+          fi
+          sudo apt install -y libnsl-dev
+
       - name: Configure Conan
         run: |
           echo "CONAN_HOME=${{ env.CONAN_HOME }}" >> $GITHUB_ENV
           conan profile detect --force
-
-      - name: System dependencies (Ubuntu)
-        if: matrix.os == 'ubuntu-latest'
-        run: |
-          sudo apt install -y libnsl-dev
-
-      - name: System dependencies (macOS)
-        if: matrix.os == 'macos-latest'
-        run: |
-          brew install llvm@15
-          BREW_PREFIX=$(brew --prefix)
-          echo "CC=$BREW_PREFIX/opt/llvm@15/bin/clang" >> $GITHUB_ENV
-          echo "CXX=$BREW_PREFIX/opt/llvm@15/bin/clang++" >> $GITHUB_ENV
-          echo "CPPFLAGS=-I$BREW_PREFIX/opt/llvm@15/include -stdlib=libc++" >> $GITHUB_ENV
-          echo "LDFLAGS=-L$BREW_PREFIX/opt/llvm@15/lib -Wl,-rpath,$BREW_PREFIX/opt/llvm@15/lib -stdlib=libc++" >> $GITHUB_ENV
-          conan profile detect --force
+          
+          if [ "${{ matrix.os }}" == "ubuntu-latest" ]; then
+            # Set compiler based on matrix
+            if [ "${{ matrix.compiler }}" == "gcc" ]; then
+              conan profile update settings.compiler=gcc default
+              conan profile update settings.compiler.version=$(gcc --version | head -n1 | grep -oE '[0-9]+' | head -n1) default
+              conan profile update settings.compiler.libcxx=libstdc++11 default
+            elif [ "${{ matrix.compiler }}" == "clang" ]; then
+              conan profile update settings.compiler=clang default
+              conan profile update settings.compiler.version=$(clang --version | head -n1 | grep -oE '[0-9]+' | head -n1) default
+              conan profile update settings.compiler.libcxx=libstdc++11 default
+            fi
+          fi
 
       - name: Cache Conan packages
         uses: actions/cache@v4
