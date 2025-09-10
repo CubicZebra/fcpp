@@ -15,12 +15,10 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-latest, macos-latest]
+        os: [windows-latest, ubuntu-latest]
         build_type: [Debug, Release]
         exclude:
           - os: windows-latest
-            build_type: Debug
-          - os: macos-latest
             build_type: Debug
 
     steps:
