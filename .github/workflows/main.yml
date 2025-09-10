@@ -34,12 +34,20 @@ jobs:
 
       - name: Install Conan
         run: |
-          pip install conan
+          pip install conan  --progress-bar ascii
 
       - name: Configure Conan
         run: |
           echo "CONAN_HOME=${{ env.CONAN_HOME }}" >> $GITHUB_ENV
           conan profile detect --force
+
+      - name: Cache Conan packages
+        uses: actions/cache@v4
+        with:
+          path: ${{ env.CONAN_HOME }}
+          key: conan-${{ runner.os }}-${{ hashFiles('**/conanfile.py', '**/conan.lock') }}
+          restore-keys: |
+            conan-${{ runner.os }}-
 
       - name: Build and test with Conan
         run: |
