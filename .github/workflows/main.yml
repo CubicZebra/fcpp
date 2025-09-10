@@ -35,7 +35,6 @@ jobs:
       - name: Install Conan
         run: |
           pip install conan
-          pip install numpy
 
       - name: Configure Conan
         run: |
@@ -87,7 +86,7 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y doxygen graphviz
-          pip install sphinx sphinx-intl
+          pip install numpy sphinx sphinx-intl
 
       - name: Build documentation
         run: |
