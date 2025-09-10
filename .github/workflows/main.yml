@@ -15,8 +15,8 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-latest]
-        build_type: [Release]
+        os: [ubuntu-latest, macos-latest]
+        build_type: [Debug, Release]
         exclude:
           - os: windows-latest
             build_type: Debug
@@ -84,22 +84,9 @@ jobs:
 
       - name: Install documentation dependencies
         run: |
-          sudo apt-get update
-          sudo apt-get install -y doxygen graphviz
+          sudo apt install -y doxygen graphviz
           pip install numpy sphinx sphinx-intl
 
       - name: Build documentation
         run: |
           python ./docs/build.py
-
-      - name: Upload Doxygen documentation
-        uses: actions/upload-artifact@v4
-        with:
-          name: doxygen-docs
-          path: docs/doxygen/build/
-
-      - name: Upload Sphinx documentation
-        uses: actions/upload-artifact@v4
-        with:
-          name: sphinx-docs
-          path: docs/sphinx/build/html/
