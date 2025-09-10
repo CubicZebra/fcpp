@@ -1,4 +1,4 @@
-conan create . -pr:b=default -pr:h=default -s build_type=Debug --build=missing
+conan create . -pr:b=default -pr:h=default -s build_type=Release --build=missing
 python ./docs/build.py
 python ./test_package/conanfile.py
 conan remove "fcpp/*" --confirm
