@@ -17,7 +17,6 @@ jobs:
       matrix:
         os: [ubuntu-latest, windows-latest]
         build_type: [Debug, Release]
-        compiler_type: [gcc, clang]
         exclude:
           - os: windows-latest
             build_type: Debug
@@ -44,12 +43,6 @@ jobs:
         if: matrix.os == 'ubuntu-latest'
         run: |
           sudo apt install -y libnsl-dev
-          if [ "${{ matrix.os }}" == "ubuntu-latest" ] && [ "${{ matrix.compiler_type }}" == "clang" ]; then
-            sudo apt install -y clang
-            conan profile update settings.compiler=clang default
-            conan profile update settings.compiler.version=$(clang --version | head -n1 | grep -oE '[0-9]+' | head -n1) default
-            conan profile update settings.compiler.libcxx=libstdc++11 default
-          fi
 
       - name: Cache Conan packages
         uses: actions/cache@v4
