@@ -42,22 +42,23 @@ jobs:
           echo "CONAN_HOME=${{ env.CONAN_HOME }}" >> $GITHUB_ENV
           conan profile detect --force
 
-      - name: Install system dependencies (Ubuntu)
-        if: matrix.os == 'ubuntu-latest'
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y build-essential cmake libnsl-dev
-
-      - name: Install system dependencies (macOS)
-        if: matrix.os == 'macos-latest'
-        run: |
-          brew update
-          brew install cmake
-
-      - name: Install system dependencies (Windows)
-        if: matrix.os == 'windows-latest'
-        run: |
-          choco install cmake --installargs 'ADD_CMAKE_TO_PATH=System'
+#      - name: Install system dependencies (Ubuntu)
+#        if: matrix.os == 'ubuntu-latest'
+#        run: |
+#          sudo apt-get update
+#          sudo apt-get install -y build-essential cmake libnsl-dev
+#
+#      - name: Install system dependencies (macOS)
+#        if: matrix.os == 'macos-latest'
+#        run: |
+#          brew update
+#          brew install cmake
+#
+#      - name: Install system dependencies (Windows)
+#        if: matrix.os == 'windows-latest'
+#        run: |
+#          where cmake
+#          cmake --version
 
       - name: Build and test with Conan
         run: |
