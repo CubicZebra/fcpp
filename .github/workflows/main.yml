@@ -50,10 +50,11 @@ jobs:
         if: matrix.os == 'macos-latest'
         run: |
           brew install llvm@15
-          echo "CC=/usr/local/opt/llvm@15/bin/clang" >> $GITHUB_ENV
-          echo "CXX=/usr/local/opt/llvm@15/bin/clang++" >> $GITHUB_ENV
-          echo "CPPFLAGS=-I/usr/local/opt/llvm@15/include -stdlib=libc++" >> $GITHUB_ENV
-          echo "LDFLAGS=-L/usr/local/opt/llvm@15/lib -Wl,-rpath,/usr/local/opt/llvm@15/lib -stdlib=libc++" >> $GITHUB_ENV
+          BREW_PREFIX=$(brew --prefix)
+          echo "CC=$BREW_PREFIX/opt/llvm@15/bin/clang" >> $GITHUB_ENV
+          echo "CXX=$BREW_PREFIX/opt/llvm@15/bin/clang++" >> $GITHUB_ENV
+          echo "CPPFLAGS=-I$BREW_PREFIX/opt/llvm@15/include -stdlib=libc++" >> $GITHUB_ENV
+          echo "LDFLAGS=-L$BREW_PREFIX/opt/llvm@15/lib -Wl,-rpath,$BREW_PREFIX/opt/llvm@15/lib -stdlib=libc++" >> $GITHUB_ENV
           conan profile detect --force
 
       - name: Cache Conan packages
