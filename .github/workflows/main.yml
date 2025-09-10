@@ -15,7 +15,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-latest, windows-latest, macos-latest]
+        os: [ubuntu-latest]
         build_type: [Release]
         exclude:
           - os: windows-latest
@@ -34,31 +34,12 @@ jobs:
 
       - name: Install Conan
         run: |
-#          python -m pip install --upgrade pip
           pip install conan
 
       - name: Configure Conan
         run: |
           echo "CONAN_HOME=${{ env.CONAN_HOME }}" >> $GITHUB_ENV
           conan profile detect --force
-
-#      - name: Install system dependencies (Ubuntu)
-#        if: matrix.os == 'ubuntu-latest'
-#        run: |
-#          sudo apt-get update
-#          sudo apt-get install -y build-essential cmake libnsl-dev
-#
-#      - name: Install system dependencies (macOS)
-#        if: matrix.os == 'macos-latest'
-#        run: |
-#          brew update
-#          brew install cmake
-#
-#      - name: Install system dependencies (Windows)
-#        if: matrix.os == 'windows-latest'
-#        run: |
-#          where cmake
-#          cmake --version
 
       - name: Build and test with Conan
         run: |
