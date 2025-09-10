@@ -34,7 +34,7 @@ jobs:
 
       - name: Install Conan
         run: |
-          pip install conan  --progress-bar ascii
+          pip install conan
 
       - name: Configure Conan
         run: |
