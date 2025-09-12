@@ -47,6 +47,8 @@ release = _metadata.get('version')
 version = _allocate_doc_version(release, _metadata.get('doc_versions'))
 
 
+numfig = True
+numfig_format = {'figure': 'Figure %s', 'code-block': 'Code %s'}
 extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.viewcode',

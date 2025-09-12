@@ -53,6 +53,7 @@ For detailed settings in project-level meta, conan recipe, or cmake file, see:
    CMakeList <components/cmake>
    Conanfile <components/conan>
    Metadata <components/meta>
+   User concern contents <export>
    :numbered:
    :maxdepth: 2
 
@@ -60,8 +61,3 @@ _`License`
 ----------
 
 This project is licensed under the Apache-2.0 License. See the LICENSE file for details.
-
-.. 【中文简介】
-   fcpp 是一个现代化的 C/C++ 库开发框架，集成了先进的构建系统、依赖管理和模块化开发支持。
-   主要特性包括：C/C++混合编程支持、C++20模块支持、基于Conan的依赖管理、跨平台构建、
-   自动化代码生成和处理，以及智能头文件与模块转换功能。

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fcpp 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-09-05 18:05+0800\n"
+"POT-Creation-Date: 2025-09-12 16:27+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: zh_CN\n"
@@ -31,74 +31,87 @@ msgstr ""
 msgid "Metadata"
 msgstr ""
 
-#: ../../source/index.rst:2 40aeb0fad26040aaa914ef8e7e820904
+#: ../../source/index.rst:52
+msgid "User concern contents"
+msgstr ""
+
+#: ../../source/index.rst:2 5098f9f288574b3bb79eff4f3478ffd1
 msgid "_`fcpp Project Documentation`"
 msgstr ""
 
-#: ../../source/index.rst:5 25b823b9fe20482681d262ef7c8a56c2
+#: ../../source/index.rst:5 d1788d27550c465b805f5235b8fe800c
 msgid "_`Introduction`"
 msgstr ""
 
-#: ../../source/index.rst:7 622f75584c0347c881984753f3f12974
+#: ../../source/index.rst:7 ff286ba22fc04d09b38e5e0dd49ba42f
 msgid ""
 "fcpp is a modern C/C++ library development framework that integrates "
 "advanced build systems, dependency management, and modular development "
 "support."
 msgstr "先进的构建系统、依赖项管理以及模块化开发支持。"
 
-#: ../../source/index.rst:11 cfd9593b44fb4bcf906aa70e2376df9e
+#: ../../source/index.rst:11 fb648b3d070d44f387ad1212ae44ce96
 msgid "_`Main Features`"
 msgstr ""
 
-#: ../../source/index.rst:13 d7e7bde57ae04616a28daf2ec47e773b
+#: ../../source/index.rst:13 44dbbcd80ee0475ebcf2d0aa4fe633ab
 msgid "Support for mixed C and C++ programming"
 msgstr ""
 
-#: ../../source/index.rst:14 2e827e7cb11441bb8fec254eea133711
+#: ../../source/index.rst:14 718b884e18a242bb8e9deff54c05032b
 msgid "Built-in C++20 module support"
 msgstr ""
 
-#: ../../source/index.rst:15 20c420ffc0b844ad9f6f9c3262913d05
+#: ../../source/index.rst:15 c47b7df0cd6546d892a7633708e824c2
 msgid "Conan-based dependency management"
 msgstr ""
 
-#: ../../source/index.rst:16 6494ccf0f5cf4b96a7c5e3f34430c95b
+#: ../../source/index.rst:16 158b026b78d54a94b76770d407542d97
 msgid "Cross-platform build support (Windows/Linux/macOS)"
 msgstr ""
 
-#: ../../source/index.rst:17 005378b3e9434d0495685c46bbe66218
+#: ../../source/index.rst:17 c0da18bd94bb4bfbbed01a5bec6db5d6
 msgid "Automated code generation and processing"
 msgstr ""
 
-#: ../../source/index.rst:18 f10115c0d74d44dfb1d64514e5337d1d
+#: ../../source/index.rst:18 6c31cacd36c14ac3a6a0006e15cd1c20
 msgid "Intelligent header and module conversion"
 msgstr ""
 
-#: ../../source/index.rst:21 16c0534840924970be77246b6179d1c2
+#: ../../source/index.rst:21 8a45435a84b44178acbb157731f2c104
 msgid "_`Quick Start`"
 msgstr ""
 
-#: ../../source/index.rst:35 7e9ad50e5fcb4cf3b8ed7e614b35f6f8
+#: ../../source/index.rst:35 421c4d0d5f5746cf8e00178d785bb813
 msgid "_`Project Structure`"
 msgstr ""
 
-#: ../../source/index.rst:48 d43d8720ed414072a7faafd6cbf97b37
+#: ../../source/index.rst:48 0da3719272724cb595f1151bf7d067f9
 msgid "_`Detailed Settings`"
 msgstr ""
 
-#: ../../source/index.rst:50 197a8a0109644cbfafee2cdfb531fdd2
+#: ../../source/index.rst:50 3503917099d2444ab0d4e1ecf59b5850
 msgid ""
 "For detailed settings in project-level meta, conan recipe, or cmake file,"
 " see:"
 msgstr ""
 
-#: ../../source/index.rst:60 243b04bd123c413486e557459b4c28d5
+#: ../../source/index.rst:61 c8161f3549674b578e80f454ed0c6925
 msgid "_`License`"
 msgstr ""
 
-#: ../../source/index.rst:62 4778c41003ec43e8a18a69381b319207
+#: ../../source/index.rst:63 93c9db90afb54d6b88e45555d4b35815
 msgid ""
 "This project is licensed under the Apache-2.0 License. See the LICENSE "
 "file for details."
 msgstr ""
+
+#~ msgid "Export"
+#~ msgstr ""
+
+#~ msgid "_`The export`"
+#~ msgstr ""
+
+#~ msgid "Full demonstration of a specific library work."
+#~ msgstr ""
 

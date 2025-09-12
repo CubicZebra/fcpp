@@ -4,3 +4,42 @@
     width: 150px;
     height: auto;
 }
+
+
+/* equation number right align */
+.eqno {
+    float: right;
+}
+
+
+/* code block caption in the bottom */
+.literal-block-wrapper {
+    position: relative;
+}
+
+.code-block-caption {
+    text-align: center;
+    margin-top: 0.1em;
+    font-size: 0.9em;
+    color: #666;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+}
+
+.highlight pre {
+    margin: 0 !important;
+    padding: 0.5em;
+    background-color: #f8f8f8;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.literal-block-wrapper .highlight {
+    margin-bottom: 1.5em;
+}
+
+.literal-block-wrapper + * {
+    margin-top: 2.5em; /* space to the next line */
+}

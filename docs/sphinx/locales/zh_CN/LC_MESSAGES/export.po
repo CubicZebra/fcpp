@@ -1,0 +1,385 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2025, fcpp-innovation
+# This file is distributed under the same license as the fcpp package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2025.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: fcpp 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-09-12 16:21+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: zh_CN\n"
+"Language-Team: zh_CN <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.17.0\n"
+
+#: ../../source/export.rst:2 7f59554fd5ec478bacb9e9f437c47d6f
+msgid "_`Full demonstration of specific lib`"
+msgstr ""
+
+#: ../../source/export.rst:4 140eb74e7b844940bd3b12df20f0cef3
+msgid ""
+"Brief overview: the library :code:`fcpp` integrates segmentation "
+"algorithms for natural images."
+msgstr ""
+
+#: ../../source/export.rst:7 ffa624275355470eb015ce8eb87e9994
+msgid "_`Theories or introduction`"
+msgstr ""
+
+#: ../../source/export.rst:9 b174438d217d416da9a78e059abaf589
+msgid ""
+"Segmentation in :code:`fcpp` is an iterative image segmentation algorithm"
+" that separates foreground from background using user input (e.g., a "
+"bounding box). It models color distributions of foreground and background"
+" with Gaussian Mixture Models (GMMs), and formulates segmentation as an "
+"energy minimization problem on a graph. The algorithm alternates between "
+"estimating pixel labels via graph cuts and refining the GMM parameters, "
+"converging to an optimal segmentation."
+msgstr ""
+
+#: ../../source/export.rst:15 20afe45e43a344eca5087a08277cdf98
+msgid ""
+"E(\\mathbf{L}) = \\sum_p D_p(l_p) + \\lambda \\sum_{p,q \\in "
+"\\mathcal{N}} w_{p,q} \\cdot \\delta(l_p \\neq l_q)"
+msgstr ""
+
+#: ../../source/export.rst:20 5571ed43fa7e412798631719263814f3
+#, python-brace-format
+msgid ""
+"The total energy is composed of the data term (pixel assignment cost) and"
+" the smoothness term (penalty for the difference in labels of adjacent "
+"pixels). The unary term :math:`D_p(l_p) = -\\log P(I_p | \\Theta_{l_p})` "
+"describes The negative log-likelihood of the color :math:`I_p` of pixel "
+":math:`p` under the foreground or background GMM model "
+":math:`\\Theta_{l_p}`, while :math:`w_{p, q}` is the edge weight between "
+"pixel :math:`p` and :math:`q`."
+msgstr ""
+
+#: ../../source/export.rst:25 8873b3182db54e8b90ff885380c29a04
+msgid "This part is optional."
+msgstr ""
+
+#: ../../source/export.rst:28 788513487ec847edac7a3fc5c1b721e5
+msgid "_`Usage demonstration`"
+msgstr ""
+
+#: ../../source/export.rst:30 8e758363ee064e6d8d2c8779395d8c2f
+msgid ""
+"The segmentation function segments the input image x by automatically "
+"defining a bounding box with margins proportional to image size. It "
+"initializes foreground and background models, then runs inner grabCut "
+"with the rectangle mode for 5 iterations. The output mask is refined to "
+"distinguish foreground (True) from background (False), effectively "
+"extracting the main object while suppressing borders. Ideal for automated"
+" foreground extraction without user input."
+msgstr ""
+
+#: ../../source/export.rst:36 101f797d606d441c8ea8cab05a569436
+msgid "segmentation demo"
+msgstr ""
+
+#: ../../source/export.rst:51 e31fa26488eb4023b1706bea2d5eafa8
+msgid "Further explanation for your code block."
+msgstr ""
+
+#: ../../source/export.rst:54 ac5eae1d13884ee6a4a9fdc3f7169736
+msgid "_`Applying results`"
+msgstr ""
+
+#: ../../source/export.rst:56 a08b3145cb0b43b3a5a27394cde8a3ec
+#, python-format
+msgid ""
+"The following illustration takes pictures of doll, person, and chicken "
+"wing as input. The algorithm can automatically calculate the their "
+"contours and areas (as shown in :numref:`Figure %s <images "
+"segmentation>`)."
+msgstr ""
+
+#: ../../source/export.rst:64 f55a44814d044cee891dd1674b138e5c
+msgid "Image segmentation illustration"
+msgstr ""
+
+#: ../../source/export.rst:66 09771615bf6e4a40807bcea5309fef19
+#, python-format
+msgid ""
+"With this segmentation algorithm, you can extract the main object with "
+"binding box in pictures. Like the :numref:`Figure %s <food "
+"segmentations>` illustrated, the proper binding boxes can extract the "
+"main food objects, which step is helpful for downstream analysis."
+msgstr ""
+
+#: ../../source/export.rst:75 d29fca40da8a4cee93a63d7f8c68b227
+msgid "Get foods from original figure"
+msgstr ""
+
+#: ../../source/export.rst:77 0a5f08e739c047e5889de130bbe86f78
+#, python-format
+msgid ""
+"Or further combined with other image processing pipelines to obtain more "
+"complicated application such as background blur (fill the real "
+"implementation of :code:`// downstream tasks` in :numref:`background "
+"blur`), showed in :numref:`Figure %s <background blur>`."
+msgstr ""
+
+#: ../../source/export.rst:86 a7e0dff4e3d74a4caf41a8be3e99c894
+msgid "Background blur via segmentation algorithm"
+msgstr ""
+
+#: ../../source/export.rst:89 5ab0f5b8e30346a89edc81e71a572f3b
+msgid "_`Algorithm benchmark from test frame`"
+msgstr ""
+
+#: ../../source/export.rst:91 3c8f83f784c244c88a5fd4c617928758
+msgid ""
+"The following table displays our testing matrix. As-checked platforms "
+"both in fields of **unit** and **stress**, are ideal choices if "
+"necessary."
+msgstr ""
+
+#: ../../source/export.rst:94 21334c8fcfbe408cbfc98669e2d398f4
+msgid "test result among platforms"
+msgstr ""
+
+#: ../../source/export.rst:99 90e3f226f9214262b9920838b5f268b1
+msgid "architecture"
+msgstr ""
+
+#: ../../source/export.rst:99 f9f854471d69466394f710697350bb65
+msgid "OS"
+msgstr ""
+
+#: ../../source/export.rst:99 bdb64974b8314057955d0d27123d2332
+msgid "CPU"
+msgstr ""
+
+#: ../../source/export.rst:99 b74ffaf956e744168e5fc93fe97e39f9
+msgid "unit total"
+msgstr ""
+
+#: ../../source/export.rst:99 c0c3a318ee204bfcb63a50658082080e
+msgid "stress total"
+msgstr ""
+
+#: ../../source/export.rst:99 0d76dce75f5b423f84be364f173cf492
+msgid "score"
+msgstr ""
+
+#: ../../source/export.rst:101 ../../source/export.rst:102
+#: ef05c3f7800842afb46354b136a73f27 fa4a7e1d770343bf8bb9e3d7b57cb43c
+msgid "x86_64"
+msgstr ""
+
+#: ../../source/export.rst:101 d449e4e91f9146ccb97df4ddf5eb980f
+msgid "Windows"
+msgstr ""
+
+#: ../../source/export.rst:101 57bea9e314f942a587152036b297712b
+msgid "Core-i7 13gen"
+msgstr ""
+
+#: ../../source/export.rst:101 bd954428b66c4a8ebe372a42b82417a3
+msgid "14822ms"
+msgstr ""
+
+#: ../../source/export.rst:101 5617711caa4740a9a647b4a8e85560f4
+msgid "173297ms"
+msgstr ""
+
+#: ../../source/export.rst:101 ../../source/export.rst:106
+#: 1d40721031de43eab73a053d912b4d3e 7f503a090b304d8f9724202d43ab7105
+msgid "A"
+msgstr ""
+
+#: ../../source/export.rst:102 ../../source/export.rst:103
+#: ../../source/export.rst:104 ../../source/export.rst:105
+#: ../../source/export.rst:106 ../../source/export.rst:108
+#: ../../source/export.rst:109 0731176a585f4083b7845660a2ec1df1
+#: 4929da2f3ce54326abea526a6fe1dd69 4dfe78c5635747d3adf080188a931516
+#: 6147a68f789c4244986dc31b271bf27d 6af106ed0ed346e88dbb52119b81d24a
+#: e5db5deca7884d339882429d0f6b4318 f97e2c30ef414c9fae1e41d1ed2e93b3
+msgid "Linux"
+msgstr ""
+
+#: ../../source/export.rst:102 15f85ffd56dc4066b914a07076e34b82
+msgid "AMD Ryzen 7"
+msgstr ""
+
+#: ../../source/export.rst:102 696736dada1d49faa7f980fc43bad799
+msgid "13823ms"
+msgstr ""
+
+#: ../../source/export.rst:102 da62b3d795554f948f9b585abb374d63
+msgid "154512ms"
+msgstr ""
+
+#: ../../source/export.rst:102 6be8d1abd5d84fa0a0474b4437e44ff6
+msgid "A+"
+msgstr ""
+
+#: ../../source/export.rst:103 ../../source/export.rst:104
+#: ../../source/export.rst:105 ../../source/export.rst:106
+#: 025d3e508b9746218f19ea8b865b6003 25b4b323418e45728824a020bbedcb31
+#: 54c93eb5b750493ca9729bc7a64041ee fc2a6924b3c44b07a552ec863282e4c0
+msgid "arm"
+msgstr ""
+
+#: ../../source/export.rst:103 da8bda5287854123ba58cbecf5432447
+msgid "cortex-m3"
+msgstr ""
+
+#: ../../source/export.rst:103 0c7372b11adb488a85c1877aa63fa0c6
+#: 415ef035a1d8442ba9cb6c9e165f7c54
+msgid "failed"
+msgstr ""
+
+#: ../../source/export.rst:103 5f1f617f2b8c4d46a3c60cc1798cf163
+msgid "D"
+msgstr ""
+
+#: ../../source/export.rst:104 eca183ba9c6d4791984ee0925a77d80b
+msgid "cortex-a53"
+msgstr ""
+
+#: ../../source/export.rst:104 8689f9be57d441c3b0ae4b04c3efd048
+msgid "25392ms"
+msgstr ""
+
+#: ../../source/export.rst:104 9aad079b852d412b96dde0ce82fb7631
+msgid "254129ms"
+msgstr ""
+
+#: ../../source/export.rst:104 16ae585a181446c2bffc0d91f614c904
+msgid "B"
+msgstr ""
+
+#: ../../source/export.rst:105 3c132f7f1ab1415f991663c8a2ceb312
+msgid "cortex-a53(4)"
+msgstr ""
+
+#: ../../source/export.rst:105 b1fbcfe83aab4cc38db45cc712a454af
+msgid "20365ms"
+msgstr ""
+
+#: ../../source/export.rst:105 e69a1a4e433e4b1da39b71a3eb17785f
+msgid "233820ms"
+msgstr ""
+
+#: ../../source/export.rst:105 1940220b2be6445f9f7011c61c332b66
+msgid "B+"
+msgstr ""
+
+#: ../../source/export.rst:106 02eea885bd204d9c9930e20860cd8bfd
+msgid "cortex-a76(4)"
+msgstr ""
+
+#: ../../source/export.rst:106 ba112595cc7f4b7c869b6ac33d69094f
+msgid "16928ms"
+msgstr ""
+
+#: ../../source/export.rst:106 505605e1e00b422faff8d06832863df3
+msgid "198923ms"
+msgstr ""
+
+#: ../../source/export.rst:107 18b7dd9221c149dcab692395354f379a
+#: 26a4c62c6bfc4a28a8838a29e11409f6 542a366360af4d11866a47213997eb81
+#: 5fb762ca35664654a1b4264a253de001 98eaca957987433890bbc68d014af709
+#: a03a5a21e02a40d7b1c30c29a3505a47
+msgid "..."
+msgstr ""
+
+#: ../../source/export.rst:108 ../../source/export.rst:109
+#: bc3f48a254c54ce0b92b20737d3e7770 d6a6e8ec28c245ceb119d7bb7646ed66
+msgid "risc-v"
+msgstr ""
+
+#: ../../source/export.rst:108 0ba557d5567e484c880b18ff58c324e6
+msgid "SiFive U74"
+msgstr ""
+
+#: ../../source/export.rst:108 727231687af84e069318a23671ca48ff
+msgid "35329ms"
+msgstr ""
+
+#: ../../source/export.rst:108 79363e309be74d5e8628240bb5bfdc12
+msgid "735723ms"
+msgstr ""
+
+#: ../../source/export.rst:108 1f942dda0343479f8f1f68dc1cf0976f
+msgid "C"
+msgstr ""
+
+#: ../../source/export.rst:109 de577380a4e643418eec47ce6c586277
+msgid "Allwinner D1"
+msgstr ""
+
+#: ../../source/export.rst:109 6c022fa8a3a24fa787d2908f2a064701
+msgid "38234ms"
+msgstr ""
+
+#: ../../source/export.rst:109 a714e014580643d88fa9694e6a4b8f9f
+msgid "825231ms"
+msgstr ""
+
+#: ../../source/export.rst:109 4a1d62cdc9194464bcc3eff02bcb3022
+msgid "C-"
+msgstr ""
+
+#: ../../source/export.rst:112 ef86e1ff850b43b396b4fa57a29f361d
+#, python-format
+msgid ""
+"The platforms with B+ or greater scores in :numref:`Table %s <test "
+"results>` are suggested to run this algorithms."
+msgstr ""
+
+#~ msgid "heatmap for design matrix"
+#~ msgstr ""
+
+#~ msgid "The following."
+#~ msgstr ""
+
+#~ msgid "No good."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Or further combined with other image "
+#~ "processing pipelines to obtain more "
+#~ "complicated application such as background "
+#~ "blur, showed in :numref:`Figure %s "
+#~ "<background blur>`."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Or further combined with other image "
+#~ "processing pipelines to obtain more "
+#~ "complicated application such as background "
+#~ "blur (fill the real implementation of"
+#~ " :code`// downstream tasks` in "
+#~ ":numref:`background blur`), showed in "
+#~ ":numref:`Figure %s <background blur>`."
+#~ msgstr ""
+
+#~ msgid "_`Applying effect`"
+#~ msgstr ""
+
+#~ msgid "heee."
+#~ msgstr ""
+
+#~ msgid "cortex-a53(*4)"
+#~ msgstr ""
+
+#~ msgid "cortex-a76(*4)"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "The platforms with B+ or greater "
+#~ "scores are suggested to run this "
+#~ "algorithms."
+#~ msgstr ""
+

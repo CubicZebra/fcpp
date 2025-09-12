@@ -23,9 +23,3 @@ C-specific, and C++-specific requirements. Documentation settings configure Doxy
 
 Example configuration demonstrates how to set up a project with C++20 support, module generation, and common
 dependencies like Boost and OpenCV.
-
-.. 【中文简介】
-   metadata.json 是 fcpp 项目的元数据配置文件，包含项目基本信息、构建配置和依赖定义。
-   文件结构包括：基本项目信息（名称、版本、许可证、描述）、作者和维护者信息、构建配置
-   （CMake版本、C/C++标准）、模块设置、依赖定义和文档配置。关键配置项涵盖了项目标识、
-   构建工具设置、模块使用和依赖管理等方面。
