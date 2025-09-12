@@ -9,10 +9,11 @@ capabilities.
 ![CodeFactor Grade](https://img.shields.io/codefactor/grade/github/CubicZebra/fcpp?label=code%20quality&logo=codefactor)
 ![C++](https://img.shields.io/badge/C%2B%2B-17%2F20%2F23-blue?logo=c%2B%2B&logoColor=white)
 ![Modules](https://img.shields.io/badge/modules-C%2B%2B23%20experimental-purple?logo=c%2B%2B&logoColor=white)
-![CI](https://github.com/CubicZebra/fcpp/actions/workflows/main.yml/badge.svg)
+![CI](https://github.com/CubicZebra/fcpp/actions/workflows/ci-build-test.yml/badge.svg)
+![CI](https://github.com/CubicZebra/fcpp/actions/workflows/docs-build.yml/badge.svg)
 ![CMake](https://img.shields.io/badge/cmake-3.28%2B-orange?logo=cmake)
-![Doxygen](https://img.shields.io/badge/docs-Doxygen-green?logo=doxygen&logoColor=white)
 ![Python](https://img.shields.io/badge/python-3.10%2B-blue?logo=python)
+![Doxygen](https://img.shields.io/badge/docs-Doxygen-green?logo=doxygen&logoColor=white)
 ![Sphinx](https://img.shields.io/badge/docs-Sphinx-blue?logo=readthedocs&logoColor=white)
 
 ## Project Overview

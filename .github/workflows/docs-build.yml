@@ -1,4 +1,4 @@
-name: Doc CI
+name: Docs
 
 on:
   push:
