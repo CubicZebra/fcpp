@@ -1,0 +1,37 @@
+name: Doc CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+env:
+  CONAN_HOME: ${{ github.workspace }}/conan_home
+
+jobs:
+  docs:
+    if: >-
+      github.event_name == 'push' &&
+      contains(join(github.event.commits.*.message, '\n'), ':book:') ||
+      github.event_name == 'pull_request'
+    name: Build Documentation
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install documentation dependencies
+        run: |
+          sudo apt install -y doxygen graphviz
+          pip install numpy sphinx sphinx-intl
+
+      - name: Build documentation
+        run: |
+          python ./docs/build.py
