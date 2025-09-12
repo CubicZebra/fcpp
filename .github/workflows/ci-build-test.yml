@@ -11,6 +11,10 @@ env:
 
 jobs:
   build-and-test:
+    if: >-
+      github.event_name == 'push' &&
+      contains(join(github.event.commits.*.message, '\n'), ':building_construction:') ||
+      github.event_name == 'pull_request'
     name: Build and Test (${{ matrix.os }}, ${{ matrix.build_type }})
     runs-on: ${{ matrix.os }}
     strategy:
@@ -65,26 +69,3 @@ jobs:
         if: always()
         run: |
           conan remove "fcpp/*" --confirm
-
-  docs:
-    name: Build Documentation
-    runs-on: ubuntu-latest
-    needs: build-and-test
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.12'
-
-      - name: Install documentation dependencies
-        run: |
-          sudo apt install -y doxygen graphviz
-          pip install numpy sphinx sphinx-intl
-
-      - name: Build documentation
-        run: |
-          python ./docs/build.py
